@@ -1,0 +1,45 @@
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond ${REQUEST_FILENAME} !-d
+#     RewriteCond ${REQUEST_FILENAME} !-f
+#     RewriteRule ^(.*)$ routes.php?request=$1 [L,QSA]
+# </IfModule>
+
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+
+#     # Allow direct access to files in the uploads directory
+#     RewriteCond %{REQUEST_URI} !^/uploads/
+
+#     # Rewrite all other requests to routes.php
+#     RewriteCond %{REQUEST_FILENAME} !-d
+#     RewriteCond %{REQUEST_FILENAME} !-f
+#     RewriteRule ^(.*)$ routes.php?request=$1 [L,QSA]    
+
+#     # Specific rule for handling DELETE requests with clean URLs
+#     RewriteCond %{REQUEST_METHOD} DELETE
+#     RewriteRule ^images/([0-9]+)$ post.php?delete_id=$1 [L,QSA]
+# </IfModule>
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "http://localhost:4200"
+    Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Allow direct access to files in the uploads directory
+    RewriteCond %{REQUEST_URI} ^/uploads/ [NC]
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # Rewrite all other requests to routes.php
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ routes.php?request=$1 [L,QSA]
+
+    # Specific rule for handling DELETE requests with clean URLs
+    RewriteCond %{REQUEST_METHOD} DELETE
+    RewriteRule ^images/([0-9]+)$ post.php?delete_id=$1 [L,QSA]
+</IfModule>

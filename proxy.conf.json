@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "http://localhost/foodhub/backend_php",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

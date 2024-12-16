@@ -1,0 +1,68 @@
+<div class="login-container">
+    <div class="login-left">
+        <div class="image-container">
+            <div class="dark-overlay"></div>
+            <img class="login-image" src="assets/bg_img/pizza.jpg" alt="Image">
+          </div>
+          <img class="logo-top-right" src="assets/img/FoodHub.png" alt="Logo">
+    </div>
+  
+    <div class="login-right">
+      <h2 class="login-title">Sign in to FoodHub</h2>
+  
+      <!-- Login Form -->
+      <form (ngSubmit)="login()" #loginForm="ngForm">
+        <div class="form-group">
+          <div class="input-container">
+            <input 
+              type="email" 
+              id="email" 
+              [(ngModel)]="email" 
+              name="email" 
+              required 
+              #emailInput="ngModel"
+              [class.is-invalid]="emailInput.invalid && emailInput.touched"
+              class="form-control"
+              placeholder=" "
+            />
+            <label for="email" class="input-label">Email</label>
+          </div>
+          <div *ngIf="emailInput.invalid && emailInput.touched" class="error-message">
+            Email is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <div class="input-container">
+            <input 
+              type="password" 
+              id="password" 
+              [(ngModel)]="password" 
+              name="password" 
+              required 
+              #passwordInput="ngModel"
+              [class.is-invalid]="passwordInput.invalid && passwordInput.touched"
+              class="form-control"
+              placeholder=" "
+            />
+            <label for="password" class="input-label">Password</label>
+          </div>
+          <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error-message">
+            Password is required.
+          </div>
+        </div>
+  
+        <!-- Submit Button -->
+        <button type="submit" [disabled]="loginForm.invalid" class="submit-button">Login</button>
+      </form>
+  
+      <!-- Display error or success message -->
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+      <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+  
+      <div class="register-link">
+        <p>Don't have an account? <a routerLink="/register">Register</a></p>
+      </div>
+    </div>
+  </div>
+  

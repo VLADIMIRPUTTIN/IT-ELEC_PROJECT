@@ -1,1 +1,161 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+.home-wrapper {
+  padding: 20px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f9fa;
+  padding: 10px 20px;
+}
+
+.nav-links a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #007bff;
+}
+
+.nav-search {
+  display: flex;
+  align-items: center;
+}
+
+.nav-search-bar {
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.welcome-title {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.welcome-message {
+  font-size: 1.2em;
+}
+
+.about-wrapper {
+  padding: 20px;
+}
+
+link .icon {
+  height: 100px;
+  width: 100px;
+}
+
+/* General responsive design for components */
+@media (max-width: 1024px) {
+  .navbar {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .admin-side,
+  .user-profile {
+    padding: 15px;
+  }
+
+  .recipe-modal {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .recipe-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links a {
+    margin: 5px 0;
+  }
+
+  .nav-search {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .welcome-title {
+    font-size: 1.5em;
+  }
+
+  .welcome-message {
+    font-size: 1em;
+  }
+
+  .home-wrapper,
+  .about-wrapper {
+    padding: 10px;
+  }
+
+  .recipe,
+  .user-recipe {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 10px;
+  }
+
+  .nav-links a {
+    font-size: 0.9em;
+  }
+
+  .welcome-title {
+    font-size: 1.2em;
+  }
+
+  .welcome-message {
+    font-size: 0.9em;
+  }
+
+  link .icon {
+    height: 80px;
+    width: 80px;
+  }
+
+  .nav-search {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-search-bar {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .admin-side,
+  .user-profile {
+    padding: 10px;
+  }
+
+  .recipe {
+    margin-bottom: 10px;
+  }
+
+  .recipe-modal {
+    width: 95%;
+  }
+}

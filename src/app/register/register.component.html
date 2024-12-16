@@ -1,0 +1,87 @@
+<div class="register-container">
+  <div class="register-left">
+    <div class="image-container">
+      <div class="dark-overlay"></div>
+      <img class="register-image" src="assets/bg_img/dimsum.jpg" alt="Image">
+    </div>
+    <img class="logo-top-right" src="assets/img/FoodHub.png" alt="Logo">
+  </div>
+
+  <div class="register-right">
+    <h2 class="registration-title">Join Us</h2>
+
+    <!-- Registration Form -->
+    <form (ngSubmit)="register()" #registerForm="ngForm">
+      <div class="form-group">
+        <div class="input-container">
+          <input 
+            type="text" 
+            id="username" 
+            [(ngModel)]="username" 
+            name="username" 
+            required 
+            #usernameInput="ngModel"
+            [class.is-invalid]="usernameInput.invalid && usernameInput.touched"
+            class="form-control"
+            placeholder=" "
+          />
+          <label for="username" class="input-label">Username</label>
+        </div>
+        <div *ngIf="usernameInput.invalid && usernameInput.touched" class="error-message">
+          Username is required.
+        </div>
+      </div>
+    
+      <div class="form-group">
+        <div class="input-container">
+          <input 
+            type="email" 
+            id="email" 
+            [(ngModel)]="email" 
+            name="email" 
+            required 
+            #emailInput="ngModel"
+            [class.is-invalid]="emailInput.invalid && emailInput.touched"
+            class="form-control"
+            placeholder=" "
+          />
+          <label for="email" class="input-label">Email</label>
+        </div>
+        <div *ngIf="emailInput.invalid && emailInput.touched" class="error-message">
+          A valid email is required.
+        </div>
+      </div>
+    
+      <div class="form-group">
+        <div class="input-container">
+          <input 
+            type="password" 
+            id="password" 
+            [(ngModel)]="password" 
+            name="password" 
+            required 
+            #passwordInput="ngModel"
+            [class.is-invalid]="passwordInput.invalid && passwordInput.touched"
+            class="form-control"
+            placeholder=" "
+          />
+          <label for="password" class="input-label">Password</label>
+        </div>
+        <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error-message">
+          Password is required.
+        </div>
+      </div>
+    
+      <!-- Submit Button -->
+      <button type="submit" class="submit-button" [disabled]="registerForm.invalid">Register</button>
+    </form>
+
+    <!-- Display error or success message -->
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+
+    <div class="login-link">
+      <p>Already have an account? <a routerLink="/login">Login</a></p>
+    </div>
+  </div>
+</div>
