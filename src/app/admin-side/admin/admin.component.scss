@@ -1,0 +1,179 @@
+// Color Variables
+$cream-white: #fff5e6;
+$light-cream: #fff9f3;
+$orange-primary: #e09f56;
+$orange-secondary: #d35400;
+$orange-hover: #f78c45;
+$orange-light: rgba(224, 159, 86, 0.1);
+$text-dark: #666666;
+$error-color: #ff4d4f;
+$background-primary: #CF996C;
+
+.container {
+  background-color: $cream-white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-out;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: $orange-secondary;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  animation: slideInLeft 0.6s ease-out;
+  border-bottom: 2px solid $orange-light;
+  padding-bottom: 0.5rem;
+}
+
+.create-recipe-btn {
+  background-color: $orange-primary;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  
+  &:hover {
+    background-color: $orange-hover;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.loading-indicator {
+  color: $orange-secondary;
+  font-weight: 500;
+  text-align: center;
+  padding: 2rem;
+  animation: scaleIn 0.4s ease-out;
+}
+
+.recipe-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  animation: slideInRight 0.7s ease-out;
+  
+  thead {
+    background-color: $orange-light;
+    
+    tr {
+      th {
+        color: $text-dark;
+        padding: 0.75rem;
+        text-align: left;
+        font-weight: 600;
+        border: 1px solid rgba(224, 159, 86, 0.2);
+      }
+    }
+  }
+  
+  tbody {
+    tr {
+      transition: background-color 0.3s ease;
+      
+      &:nth-child(even) {
+        background-color: lighten($cream-white, 2%);
+      }
+      
+      &:hover {
+        background-color: $orange-light;
+      }
+      
+      td {
+        padding: 0.5rem;
+        color: $text-dark;
+        border: 1px solid rgba(224, 159, 86, 0.2);
+      }
+    }
+  }
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  
+  .view-btn {
+    background-color: #3B82F6; // Blue
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+      background-color: darken(#3B82F6, 10%);
+    }
+  }
+  
+  .edit-btn {
+    background-color: #EAB308; // Yellow
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+      background-color: darken(#EAB308, 10%);
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  color: $text-dark;
+  padding: 2rem;
+  background-color: $light-cream;
+  border-radius: 12px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+// Animations (already defined in the original variables)
+@keyframes fadeIn {
+  from { 
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

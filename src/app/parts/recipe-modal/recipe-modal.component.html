@@ -1,0 +1,49 @@
+<!-- recipe-modal.component.html -->
+<div class="modal" [class.visible]="visible">
+  <div class="modal-content">
+    <button class="close-button" (click)="closeModal()">&times;</button>
+
+    <div *ngIf="loading" class="loading">
+      Loading...
+    </div>
+
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+
+    <div *ngIf="recipe && !loading" class="recipe-details">
+      <h2>{{ recipe.name }}</h2>
+      <p class="category">Category: {{ recipe.category }}</p>
+      
+      <div class="description">
+        <h3>Description</h3>
+        <p>{{ recipe.description }}</p>
+      </div>
+
+      <div class="ingredients">
+        <h3>Ingredients</h3>
+        <ul>
+          <li *ngFor="let ingredient of recipe.ingredients_list">
+            {{ formatAmount(ingredient.amount) }} {{ ingredient.unit }} {{ ingredient.ingredient_name }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- <div class="preparation">
+        <h3>Preparation Steps</h3>
+        <ol>
+          <li *ngFor="let step of recipe.preparation_steps">
+            <strong>Step {{ step.step_number }}:</strong> 
+            <span class="instruction">{{ step.instruction }}</span>
+            <p class="preparation-detail">{{ step.preparation }}</p>
+          </li>
+        </ol>
+      </div> -->
+
+      <div class="view-full-recipe">
+        <button class="view-button" (click)="viewFullRecipe()">View Full Recipe</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
