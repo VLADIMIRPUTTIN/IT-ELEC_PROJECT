@@ -1,0 +1,44 @@
+<app-nav></app-nav>
+<div class="shared-recipes-container">
+  <h1>Community Shared Recipes</h1>
+  
+  <div *ngIf="isLoading" class="loading-spinner">
+    <p>Loading shared recipes...</p>
+  </div>
+  
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage && sharedRecipes.length === 0" class="no-recipes">
+    <p>No shared recipes found. Be the first to share your recipe with the community!</p>
+  </div>
+  
+  <ul class="recipes-grid" *ngIf="sharedRecipes.length > 0">
+    <li class="recipe-item" *ngFor="let recipe of sharedRecipes">
+      <div class="recipe-image">
+        <img 
+          [src]="getRecipeImage(recipe)" 
+          [alt]="recipe.name"
+          (error)="onImgError($event)"
+        >
+      </div>
+      <div class="recipe-content">
+        <h4 class="recipe-title">{{ recipe.name }}</h4>
+        <div class="recipe-meta">
+          <span class="recipe-author"><i class="fas fa-user"></i> {{ recipe.username }}</span>
+          <span class="recipe-category"><i class="fas fa-tag"></i> {{ recipe.category }}</span>
+        </div>
+        <p class="recipe-description">{{ recipe.description }}</p>
+      </div>
+      <div class="recipe-buttons">
+        <button (click)="viewRecipe(recipe.id)" class="view-btn">
+          <i class="fas fa-eye"></i> View
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<script>
+</script>

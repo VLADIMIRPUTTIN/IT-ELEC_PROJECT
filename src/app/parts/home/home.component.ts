@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrls: ['./home.component.scss'] // Use styleUrls instead of styleUrl
 })
-export class HomeComponent {
-
-}
+export class HomeComponent { }

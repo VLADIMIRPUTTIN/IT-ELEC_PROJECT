@@ -1,0 +1,751 @@
+// Color Variables
+$cream-white: #fff5e6;
+$light-cream: #fff9f3;
+$orange-primary: #e09f56;
+$orange-secondary: #d35400;
+$orange-hover: #f78c45;
+$orange-light: rgba(224, 159, 86, 0.1);
+$text-dark: #666666;
+$error-color: #ff4d4f;
+$background-primary: #CF996C;
+$success-color: #52c41a;
+$blue-primary: #1890ff;
+
+.container {
+  background-color: $cream-white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-out;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: $orange-secondary;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  animation: slideInLeft 0.6s ease-out;
+  border-bottom: 2px solid $orange-light;
+  padding-bottom: 0.5rem;
+}
+
+.create-recipe-btn {
+  background-color: $orange-primary;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  
+  &:hover {
+    background-color: $orange-hover;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+  color: $orange-secondary;
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(224, 159, 86, 0.3);
+    border-radius: 50%;
+    border-top-color: $orange-primary;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    font-weight: 500;
+  }
+}
+
+.recipe-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  animation: slideInRight 0.7s ease-out;
+  
+  thead {
+    background-color: $orange-light;
+    
+    tr {
+      th {
+        color: $text-dark;
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+        white-space: nowrap;
+        border: 1px solid rgba(224, 159, 86, 0.2);
+        
+        &:first-child {
+          padding-left: 1.5rem;
+        }
+        
+        &:last-child {
+          padding-right: 1.5rem;
+        }
+      }
+    }
+  }
+  
+  tbody {
+    tr {
+      transition: background-color 0.2s ease;
+      
+      &:not(:last-child) {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      
+      &:nth-child(even) {
+        background-color: lighten($cream-white, 2%);
+      }
+      
+      &:hover {
+        background-color: $orange-light;
+      }
+      
+      td {
+        padding: 1rem;
+        color: $text-dark;
+        vertical-align: middle;
+        border: 1px solid rgba(224, 159, 86, 0.2);
+        
+        &:first-child {
+          padding-left: 1.5rem;
+        }
+        
+        &:last-child {
+          padding-right: 1.5rem;
+        }
+      }
+    }
+  }
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  
+  button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: white;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+  
+  .view-btn {
+    background-color: $blue-primary;
+    
+    &:hover {
+      background-color: darken($blue-primary, 10%);
+      box-shadow: 0 4px 8px rgba(24, 144, 255, 0.3);
+    }
+  }
+  
+  .edit-btn {
+    background-color: #EAB308;
+    
+    &:hover {
+      background-color: darken(#EAB308, 10%);
+      box-shadow: 0 4px 8px rgba(234, 179, 8, 0.3);
+    }
+  }
+  
+  .delete-btn {
+    background-color: $error-color;
+    
+    &:hover {
+      background-color: darken($error-color, 10%);
+      box-shadow: 0 4px 8px rgba(255, 77, 79, 0.3);
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  background-color: $light-cream;
+  border-radius: 12px;
+  animation: fadeIn 0.5s ease-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  
+  .empty-icon {
+    font-size: 3rem;
+    color: $orange-primary;
+    opacity: 0.6;
+    margin-bottom: 1rem;
+  }
+  
+  h3 {
+    color: $text-dark;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    color: lighten($text-dark, 20%);
+  }
+}
+
+// Animations (already defined in the original variables)
+@keyframes fadeIn {
+  from { 
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.admin-dashboard {
+  padding: 2rem;
+  background-color: #f8f8f8;
+  min-height: 100vh;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid $orange-light;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+.dashboard-title {
+  color: $orange-secondary;
+  font-size: 1.8rem;
+  font-weight: bold;
+  animation: slideInLeft 0.6s ease-out;
+  display: flex;
+  align-items: center;
+}
+
+.icon-spacing {
+  margin-right: 0.5rem;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background-color: $cream-white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat-icon {
+    width: 50px;
+    height: 50px;
+    background-color: $orange-light;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    
+    i {
+      color: $orange-primary;
+      font-size: 1.5rem;
+    }
+  }
+  
+  .stat-content {
+    flex: 1;
+  }
+  
+  .stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: $orange-secondary;
+    margin-bottom: 0.25rem;
+  }
+  
+  .stat-label {
+    color: $text-dark;
+    font-size: 0.9rem;
+  }
+}
+
+.filters-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $text-dark;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: $light-cream;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(224, 159, 86, 0.3);
+    border-color: $orange-primary;
+  }
+}
+
+.filter-container {
+  width: 200px;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.filter-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: $light-cream;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(224, 159, 86, 0.3);
+    border-color: $orange-primary;
+  }
+}
+
+.table-container {
+  background-color: $cream-white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.5rem;
+}
+
+.recipe-name {
+  font-weight: 600;
+  color: $orange-secondary;
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: $orange-light;
+  color: $orange-secondary;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.pagination-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: $light-cream;
+  transition: all 0.2s ease;
+  color: $text-dark;
+  
+  &:hover:not(:disabled) {
+    background-color: $orange-light;
+    color: $orange-secondary;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.page-indicator {
+  font-size: 0.9rem;
+  color: $text-dark;
+}
+
+// Media queries for better mobile responsiveness
+@media (max-width: 1024px) {
+  .admin-dashboard {
+    padding: 1.5rem;
+  }
+  
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  .recipe-table {
+    min-width: 800px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-dashboard {
+    padding: 1rem;
+  }
+  
+  .dashboard-title {
+    font-size: 1.5rem;
+  }
+  
+  .stat-card {
+    padding: 1rem;
+    
+    .stat-value {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+// Enhanced Mobile Responsiveness
+@media (max-width: 768px) {
+  .recipe-table {
+    // Convert table to cards on mobile
+    thead {
+      display: none; // Hide table headers on mobile
+    }
+    
+    tbody tr {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(224, 159, 86, 0.3);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      background-color: $light-cream;
+      
+      td {
+        display: flex;
+        padding: 0.75rem 0.5rem;
+        border: none;
+        border-bottom: 1px solid rgba(224, 159, 86, 0.1);
+        text-align: left;
+        
+        &:before {
+          content: attr(data-label);
+          font-weight: bold;
+          width: 40%;
+          color: $orange-secondary;
+        }
+        
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+  
+  .action-buttons {
+    width: 100%;
+    justify-content: space-around;
+    
+    button {
+      width: 44px;
+      height: 44px;
+      font-size: 1.1rem;
+    }
+  }
+  
+  .filters-container {
+    gap: 0.75rem;
+  }
+  
+  .stats-container {
+    gap: 1rem;
+  }
+  
+  .stat-card {
+    padding: 1rem;
+    
+    .stat-value {
+      font-size: 1.4rem;
+    }
+  }
+  
+  .pagination-container {
+    .pagination-btn {
+      width: 44px;
+      height: 44px;
+    }
+  }
+}
+
+// Extra small devices
+@media (max-width: 480px) {
+  .admin-dashboard {
+    padding: 1rem 0.5rem;
+  }
+  
+  .dashboard-header {
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .create-recipe-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .search-input, .filter-select {
+    padding: 0.875rem;
+    font-size: 1rem;
+  }
+  
+  .stat-card {
+    min-height: 90px;
+  }
+}
+
+// Add these additional styles for mobile loading and empty states
+
+@media (max-width: 768px) {
+  .loading-indicator {
+    padding: 2rem 0;
+    
+    .spinner {
+      width: 36px;
+      height: 36px;
+    }
+  }
+  
+  .empty-state {
+    padding: 2rem 1rem;
+    
+    .empty-icon {
+      font-size: 2.5rem;
+    }
+    
+    h3 {
+      font-size: 1.1rem;
+    }
+    
+    p {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// Add active state styles for better touch feedback
+
+.search-input:active, .filter-select:active {
+  background-color: darken($light-cream, 2%);
+}
+
+.action-buttons button:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  .create-recipe-btn:active {
+    background-color: darken($orange-hover, 5%);
+    transform: translateY(1px);
+  }
+  
+  .pagination-btn:active:not(:disabled) {
+    background-color: $orange-primary;
+    color: white;
+    transform: scale(0.95);
+  }
+}
+
+// Update the mobile responsiveness styles
+
+// Fix table container width for mobile
+@media (max-width: 768px) {
+  .table-container {
+    width: 100%;
+    overflow-x: hidden; // Prevent horizontal scrolling
+  }
+  
+  .recipe-table {
+    width: 100%;
+    min-width: unset; // Remove min-width to prevent overflow
+    
+    tbody tr {
+      width: 100%; // Ensure full width
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+      
+      td {
+        width: 100%;
+        box-sizing: border-box;
+        flex-wrap: wrap; // Allow content to wrap
+        
+        &:before {
+          min-width: 80px; // Minimum width for label
+          width: 35%; // Reduce width of label
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+  
+  // Fix action buttons positioning
+  .action-buttons {
+    justify-content: flex-start; // Align buttons to start
+    gap: 0.75rem; // Reduce gap
+    
+    button {
+      width: 40px; // Make buttons smaller
+      height: 40px;
+    }
+  }
+  
+  // Fix stats cards
+  .stats-container {
+    grid-template-columns: 1fr; // Stack cards vertically on mobile
+    max-width: 100%; // Ensure no overflow
+  }
+}
+
+// Extra small devices
+@media (max-width: 480px) {
+  .admin-dashboard {
+    padding: 1rem 0.5rem;
+    overflow-x: hidden; // Prevent horizontal scroll
+  }
+  
+  // Better date display on mobile
+  [data-label="Created At"], [data-label="Updated At"] {
+    font-size: 0.9rem;
+    
+    &:before {
+      margin-bottom: 5px;
+    }
+  }
+  
+  // Fix create button width
+  .create-recipe-btn {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 0.75rem 0.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+// Fix pagination on mobile
+@media (max-width: 380px) {
+  .pagination-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    .page-indicator {
+      width: 100%;
+      text-align: center;
+      margin: 0.5rem 0;
+    }
+  }
+}

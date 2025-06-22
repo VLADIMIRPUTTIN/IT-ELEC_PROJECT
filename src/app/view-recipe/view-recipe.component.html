@@ -1,0 +1,64 @@
+<div class="recipe-view-container">
+  <button class="back-button" (click)="goBack()">
+    &larr; Back
+  </button>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    Loading recipe...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="recipe && !loading">
+    <section class="recipe-hero">
+      <div class="recipe-image">
+        <img *ngIf="recipe?.image" 
+             [src]="recipe.image" 
+             [alt]="recipe.name"
+             (error)="handleImageError($event)">
+        <div class="image-overlay"></div>
+      </div>
+      
+      <div class="recipe-details">
+        <div class="recipe-header">
+          <h1>{{ recipe.name }}</h1>
+          <div class="recipe-meta">
+            <span class="category">{{ recipe.category }}</span>
+            <span class="date">Added: {{ recipe.created_at | date }}</span>
+          </div>
+          <p class="recipe-description">{{ recipe.description }}</p>
+        </div>
+
+        <div class="ingredients-list">
+          <h2>Ingredients</h2>
+          <ul>
+            <li *ngFor="let ingredient of recipe.ingredients_list">
+              <span class="amount">{{ formatAmount(ingredient.amount) }}</span>
+              <span class="unit">{{ ingredient.unit }}</span>
+              <span class="ingredient-name">{{ ingredient.ingredient_name }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="recipe-content">
+      <div class="content-gradient"></div>
+      <div class="recipe-preparation">
+        <h2>How to Prepare</h2>
+        <div class="steps">
+          <div *ngFor="let step of recipe.preparation_steps" class="step">
+            <div class="step-number">{{ step.step_number }}</div>
+            <div class="step-content">
+              <h3>{{ step.instruction }}</h3>
+              <p>{{ step.preparation }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

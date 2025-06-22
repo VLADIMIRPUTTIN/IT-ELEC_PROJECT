@@ -1,0 +1,14 @@
+<div class="install-prompt" *ngIf="showButton">
+  <div class="prompt-content">
+    <div class="prompt-text">
+      <h3>Install FoodHub App</h3>
+      <p>Install our app for a better experience offline</p>
+    </div>
+    <button class="install-button" (click)="installPwa()">
+      <i class="fas fa-download"></i> Install
+    </button>
+    <button class="close-button" (click)="dismissPrompt()">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+</div>

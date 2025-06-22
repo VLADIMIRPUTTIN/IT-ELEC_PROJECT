@@ -1,0 +1,46 @@
+<!-- recipe-modal.component.html -->
+<div class="modal" [class.visible]="visible">
+  <div class="modal-content">
+    <button class="close-button" (click)="closeModal()" aria-label="Close modal">&times;</button>
+
+    <div *ngIf="loading" class="loading">
+      <div class="loading-spinner"></div>
+      <span>Loading recipe details...</span>
+    </div>
+
+    <div *ngIf="error" class="error">
+      <i class="fas fa-exclamation-circle"></i>
+      {{ error }}
+    </div>
+
+    <div *ngIf="recipe && !loading" class="recipe-details">
+      <h2>{{ recipe.name }}</h2>
+      <div class="recipe-meta">
+        <span class="category"><i class="fas fa-utensils"></i> {{ recipe.category }}</span>
+      </div>
+      
+      <div class="description">
+        <h3><i class="fas fa-info-circle"></i> Description</h3>
+        <p>{{ recipe.description }}</p>
+      </div>
+
+      <div class="ingredients">
+        <h3><i class="fas fa-carrot"></i> Ingredients</h3>
+        <ul>
+          <li *ngFor="let ingredient of recipe.ingredients_list">
+            <span class="ingredient-amount">{{ formatAmount(ingredient.amount) }} {{ ingredient.unit }}</span>
+            <span class="ingredient-name">{{ ingredient.ingredient_name }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="view-full-recipe">
+        <button class="view-button" (click)="viewFullRecipe()">
+          <i class="fas fa-book-open"></i>
+          <span>View Full Recipe</span>
+          <span class="button-sparkle"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

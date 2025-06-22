@@ -1,0 +1,317 @@
+<app-nav (searchEvent)="onSearch($event)"></app-nav>
+  <div class="home-wrapper">
+    <!-- Sidebar for Ingredient Selection -->
+  
+
+    <aside class="ingredient-selection" [ngClass]="{'open': isIngredientMenuOpen && isMobile}">
+      <button 
+      class="ingredient-toggle" 
+      (click)="toggleIngredientMenu()"
+      aria-label="Toggle ingredient menu"
+    >
+      <i class="fas fa-utensils"></i>
+    </button>
+
+      <button 
+    class="close-button" 
+    (click)="closeIngredientMenu()"
+    aria-label="Close ingredient menu"
+  >
+    &times;
+  </button>
+
+      <h2>Select Ingredients</h2>
+
+      <!-- Ingredient Search Bar -->
+      <div class="ingredient-search">
+        <input
+          type="text"
+          [(ngModel)]="ingredientSearchQuery"
+          (input)="filterIngredients(ingredientSearchQuery)"
+          placeholder="Search ingredients..."
+          class="search-input"
+        />
+      </div>
+      
+      <!-- Loading and Error States -->
+      <ng-container *ngIf="isLoading || error; else ingredientsList">
+        <div *ngIf="isLoading" class="loading-state">
+          <p>Loading ingredients...</p>
+        </div>
+        <div *ngIf="error" class="error-state">
+          <p>{{ error }}</p>
+          <button (click)="fetchIngredients()">Retry</button>
+        </div>
+      </ng-container>
+
+       <!-- Ingredients List (Paginated) -->
+  <ng-template #ingredientsList>
+    <div class="ingredient-group">
+      <div class="ingredient-buttons">
+        <button 
+          *ngFor="let ingredient of filteredAvailableIngredients; trackBy: trackByIngredient"
+          class="ingredient-button"
+          [ngClass]="{'selected': selectedIngredients.includes(ingredient)}"
+          (click)="toggleIngredient(ingredient)"
+          [attr.aria-pressed]="selectedIngredients.includes(ingredient)"
+          role="checkbox"
+        >
+          {{ ingredient }}
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</aside>
+
+<div 
+  class="ingredient-overlay" 
+  [ngClass]="{'active': isIngredientMenuOpen && isMobile}"
+  (click)="closeIngredientMenu()"
+></div>
+
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Find Recipes</h1>
+      </header>
+      
+
+      <!-- Selected Ingredients -->
+      <section 
+        class="selected-ingredients-container" 
+        *ngIf="selectedIngredients.length > 0"
+        role="region" 
+        [attr.aria-label]="'Selected ingredients'"
+      >
+        <h3>Selected Ingredients:</h3>
+        <div class="selected-ingredients">
+          <ul class="selected-ingredients-list">
+            <li 
+              class="selected-item" 
+              *ngFor="let ingredient of selectedIngredients; trackBy: trackByIngredient"
+            >
+              <span>{{ ingredient }}</span>
+              <button 
+                class="remove-button"
+                (click)="toggleIngredient(ingredient)"
+                [attr.aria-label]="'Remove ' + ingredient"
+              >
+                <i class="fas fa-times" aria-hidden="true"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Recipe Search Section -->
+<div class="recipe-section">
+  <div class="available-recipes">
+    <h2>
+      Available Recipes
+      <span *ngIf="searchQuery || selectedIngredients.length > 0">
+        ({{ filteredRecipes.length }})
+      </span>
+    </h2>
+
+    <div class="search-and-filter">
+      <!-- Search Container -->
+      <div class="search-container">
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          (input)="onSearch(searchQuery)"
+          placeholder="Search recipes..."
+          class="search-input"
+        />
+      </div>
+
+      <!-- Category Filter Dropdown -->
+      <div class="category-filter">
+        <button class="dropdown-toggle" (click)="toggleCategoryDropdown()" aria-label="Filter by category">
+          Filter by Category <i class="fas fa-chevron-down"></i>
+        </button>
+        <ul class="dropdown-menu" *ngIf="isCategoryDropdownOpen">
+          <li *ngFor="let category of recipeCategories" (click)="filterByCategory(category)">
+            {{ category }}
+          </li>
+          <li (click)="filterByCategory('All')">All</li>
+        </ul>
+      </div>
+
+      <!-- Price Filter Inputs -->
+      <div class="price-filter-inline">
+        <input
+          id="min-price"
+          type="number"
+          [(ngModel)]="minPrice"
+          (input)="applyPriceFilter()"
+          placeholder="Min Price"
+          class="price-input"
+        />
+        <input
+          id="max-price"
+          type="number"
+          [(ngModel)]="maxPrice"
+          (input)="applyPriceFilter()"
+          placeholder="Max Price"
+          class="price-input"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+    
+    <!-- Validation Message When Ingredients Are Selected -->
+    <div *ngIf="validationMessage" class="validation-message">
+      <p>{{ validationMessage }}</p>
+    </div>
+  
+        
+      
+      <div 
+        #recipeList
+        class="recipe-list" 
+        role="region" 
+        [attr.aria-label]="'Available recipes'"
+      >
+        <ng-container *ngIf="!isLoading; else loadingRecipes">
+          <ng-container *ngIf="filteredRecipes.length > 0; else noRecipes">
+            <ul class="recipes-grid">
+              <li
+                class="recipe-item"
+                *ngFor="let recipe of paginatedRecipes; trackBy: trackByRecipe"
+                (click)="selectRecipe(recipe)"
+                (keydown.enter)="selectRecipe(recipe)"
+                tabindex="0"
+                role="button"
+                [attr.aria-label]="'View details for ' + recipe.name"
+              >
+                <!-- Fix the image loading in the recipe card -->
+                <div class="recipe-image">
+                  <img 
+                    [src]="recipe.image && recipe.image.includes('http') ? recipe.image : 'https://userirecipeimage.foodhubrecipe.shop/' + recipe.image" 
+                    [alt]="recipe.name" 
+                    class="small-image"
+                    (error)="handleImageError($event, recipe)" />
+                </div>
+                
+                <div class="recipe-content">
+                  <h4 class="recipe-title">{{ recipe.name }}</h4>
+                  <p class="recipe-description">{{ recipe.description }}</p>
+                  <p class="recipe-price">Estimated Price: {{ recipe.estimated_price | currency }}</p>
+                </div>
+                
+                <!-- Move rate button to dedicated container -->
+                <div class="recipe-buttons">
+  <button class="rate-btn" (click)="openRatingModal(recipe.id); $event.stopPropagation()" aria-label="Rate this recipe">
+    <i class="fas fa-star"></i> Rate
+  </button>
+  
+  <div class="rating-info-container">
+    <!-- Add a mobile-optimized class -->
+    <div class="mini-stars" *ngIf="ratingInfo[recipe.id]">
+      <i class="fas fa-star" [ngClass]="{'star-filled': ratingInfo[recipe.id].avg >= 1, 'low-rating': ratingInfo[recipe.id].avg < 3}"></i>
+      <i class="fas fa-star" [ngClass]="{'star-filled': ratingInfo[recipe.id].avg >= 2, 'low-rating': ratingInfo[recipe.id].avg < 3}"></i>
+      <i class="fas fa-star" [ngClass]="{'star-filled': ratingInfo[recipe.id].avg >= 3, 'medium-rating': ratingInfo[recipe.id].avg >= 3 && ratingInfo[recipe.id].avg < 4}"></i>
+      <i class="fas fa-star" [ngClass]="{'star-filled': ratingInfo[recipe.id].avg >= 4, 'high-rating': ratingInfo[recipe.id].avg >= 4}"></i>
+      <i class="fas fa-star" [ngClass]="{'star-filled': ratingInfo[recipe.id].avg >= 5, 'high-rating': ratingInfo[recipe.id].avg >= 4}"></i>
+    </div>
+    <span class="rating-count" *ngIf="ratingInfo[recipe.id]">
+      <b>{{ ratingInfo[recipe.id].avg | number:'1.1-1' }}</b>/5 · {{ ratingInfo[recipe.id].count }} ratings
+    </span>
+    <span class="rating-count" *ngIf="!ratingInfo[recipe.id]">
+      (No ratings yet)
+    </span>
+  </div>
+</div>
+                
+                <!-- Heart Icon for Favorites -->
+                <button
+                  class="favorite-button"
+                  [class.active]="isRecipeFavorite(recipe.id)"
+                  (click)="toggleFavorite(recipe); $event.stopPropagation()"
+                  [attr.aria-label]="isRecipeFavorite(recipe.id) ? 'Remove from favorites' : 'Add to favorites'"
+                >
+                  <i [ngClass]="isRecipeFavorite(recipe.id) ? 'fas fa-heart' : 'far fa-heart'"></i>
+                </button>
+                <!-- Dynamic Island Notification -->
+                <span 
+                  class="favorite-dynamic-island"
+                  *ngIf="favoriteNotification.recipeId === recipe.id && favoriteNotification.show"
+                  [ngClass]="favoriteNotification.type"
+                >
+                  <i *ngIf="favoriteNotification.type === 'success'" class="fas fa-check-circle"></i>
+                  <i *ngIf="favoriteNotification.type === 'error'" class="fas fa-times-circle"></i>
+                  {{ favoriteNotification.message }}
+                </span>
+              </li>
+            </ul>
+          </ng-container>
+        </ng-container>
+      </div>
+
+      <!-- Pagination Controls -->
+      <nav
+        class="pagination-controls"
+        *ngIf="totalPages > 1"
+        role="navigation"
+        [attr.aria-label]="'Recipe pages'"
+      >
+        <button
+          class="btn btn-secondary"
+          (click)="prevPage()"
+          [disabled]="currentPage === 1"
+          [attr.aria-label]="'Previous page'"
+        >
+          &lt; Previous
+        </button>
+        <span class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+        <button
+          class="btn btn-secondary"
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages"
+          [attr.aria-label]="'Next page'"
+        >
+          Next &gt;
+        </button>
+      </nav>
+        
+        <ng-template #loadingRecipes>
+          <div class="loading-state">
+            <p>Loading recipes...</p>
+          </div>
+        </ng-template>
+        
+        <!-- No Recipes Available -->
+        <ng-template #noRecipes>
+          <p class="text-muted">No recipes match your search. Try selecting different ingredients or keywords.</p>
+        </ng-template>
+      
+
+      <!-- Recipe Modal -->
+      <app-recipe-modal 
+        [recipeId]="selectedRecipeId"
+        [visible]="modalVisible" 
+        (close)="closeModal()">
+      </app-recipe-modal>
+
+      <!-- Rating Modal -->
+      <app-rating-modal
+        [visible]="ratingModalVisible"
+        [recipeId]="ratingModalRecipeId!"
+        (close)="closeRatingModal()"
+        (rated)="onRecipeRated($event)">
+      </app-rating-modal>
+    </main>
+  </div>
+
+  <div class="global-toast-notification"
+     *ngIf="globalNotification.show"
+     [ngClass]="globalNotification.type">
+  <span class="icon">
+    <i *ngIf="globalNotification.type === 'success'" class="fas fa-check-circle"></i>
+    <i *ngIf="globalNotification.type === 'error'" class="fas fa-times-circle"></i>
+  </span>
+  <span class="message">{{ globalNotification.message }}</span>
+</div>

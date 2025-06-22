@@ -1,0 +1,190 @@
+.shared-recipes-container {
+  max-width: 1200px;
+  margin: 2rem auto 4rem auto;
+  padding: 0 1rem;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #d35400;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  .loading-spinner, .error-message, .no-recipes {
+    text-align: center;
+    padding: 2rem;
+    background-color: #fff5e6;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    color: #d35400;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .error-message {
+    color: #e74c3c;
+    background-color: #fde8e6;
+  }
+}
+
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); // mas maliit na cards
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recipe-item {
+  background: #fff5e6;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s;
+  position: relative;
+  min-height: 260px; // mas maliit na height
+
+  &:hover {
+    transform: translateY(-7px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(211, 84, 0, 0.13);
+  }
+
+  .recipe-image {
+    width: 100%;
+    height: 100px; // mas maliit na image
+    background: #eee;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+
+  .recipe-content {
+    flex: 1;
+    padding: 1.2rem 1.3rem 0.5rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+
+    .recipe-title {
+      color: #d35400;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+
+    .recipe-meta {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+      color: #e09f56;
+
+      .recipe-author, .recipe-category {
+        display: flex;
+        align-items: center;
+        gap: 0.3em;
+        font-style: italic;
+      }
+      .recipe-category {
+        background: #e3f2fd;
+        color: #1565c0;
+        border-radius: 12px;
+        padding: 0.05rem 0.4rem;
+        font-size: 0.8rem;
+        font-style: normal;
+      }
+    }
+
+    .recipe-description {
+      color: #555;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      min-height: 36px;
+    }
+  }
+
+  .recipe-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 1.3rem 1.1rem 1.3rem;
+    margin-top: auto;
+
+    .view-btn {
+      background: #ff6b6b;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(255,107,107,0.10);
+      transition: background 0.2s, transform 0.18s;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+
+      i {
+        font-size: 1.1em;
+      }
+
+      &:hover {
+        background: #ff5252;
+        transform: translateY(-2px) scale(1.04);
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 900px) {
+  .recipes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.2rem;
+  }
+  .recipe-item .recipe-content {
+    padding: 1rem 0.8rem 0.5rem 0.8rem;
+  }
+  .recipe-item .recipe-buttons {
+    padding: 0 0.8rem 1rem 0.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .shared-recipes-container {
+    margin: 1rem auto 3.5rem auto;
+    padding: 0 0.2rem;
+    h1 {
+      font-size: 1.3rem;
+    }
+  }
+  .recipes-grid {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+  .recipe-item {
+    min-height: 340px;
+  }
+}

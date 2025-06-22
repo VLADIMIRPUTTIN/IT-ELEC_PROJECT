@@ -1,0 +1,143 @@
+{
+  "configVersion": 1,
+  "timestamp": 1748350643845,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/chunk-HOVKWKPF.js",
+        "/chunk-MEEFUR5Z.js",
+        "/favicon.ico",
+        "/index.html",
+        "/main-DPLOTYCP.js",
+        "/manifest.webmanifest",
+        "/polyfills-FFHMD2TL.js",
+        "/styles-CUVLEEAA.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/assets/bg_img/dimsum.jpg",
+        "/assets/bg_img/pizza.jpg",
+        "/assets/img/2.png",
+        "/assets/img/FoodHub-Full.png",
+        "/assets/img/FoodHub.png",
+        "/assets/img/adobo.png",
+        "/assets/img/avocado.png",
+        "/assets/img/background-img.jpg",
+        "/assets/img/bananabread.png",
+        "/assets/img/beefstroganoff",
+        "/assets/img/beefstroganoff.png",
+        "/assets/img/berryparfait.png",
+        "/assets/img/caesarsalad.png",
+        "/assets/img/capresesalad.png",
+        "/assets/img/chickenalfredo.png",
+        "/assets/img/chickencurry.png",
+        "/assets/img/classiccaesarsalad.png",
+        "/assets/img/cookies.png",
+        "/assets/img/eggplantparmesan.png",
+        "/assets/img/friedrice.png",
+        "/assets/img/mangosmoothie.png",
+        "/assets/img/onionsoup.png",
+        "/assets/img/pumpkinsoup.png",
+        "/assets/img/spaghettibolognese.png",
+        "/assets/img/tacos.png",
+        "/assets/img/teriyakichicken.png",
+        "/assets/img/tikkamasala.png",
+        "/assets/img/veganchickpeacurry.png",
+        "/assets/img/vegetablecurry.png",
+        "/assets/img/vegetablestirfry.png",
+        "/assets/pfp-default/profile-icon.jpg"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-performance",
+      "patterns": [
+        "https:\\/\\/imageapi\\.foodhubrecipe\\.shop\\/.*"
+      ],
+      "strategy": "performance",
+      "maxSize": 100,
+      "maxAge": 86400000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/assets/bg_img/dimsum.jpg": "0925b6b481c77878a0818c36318123e1c389e5a3",
+    "/assets/bg_img/pizza.jpg": "fa03111d2ff9fa9dbe0bcfa87a13308f40b16168",
+    "/assets/img/2.png": "62198cc4d2fb0a2d613a8400c4e9bfb7d14bb53e",
+    "/assets/img/FoodHub-Full.png": "975ded5baa6a163767652d31f57e5031e3d0dd90",
+    "/assets/img/FoodHub.png": "76d94c44e5dd5d83ff1e52d385fc9bedae3712cd",
+    "/assets/img/adobo.png": "d7e758e18433b04e5cbe7bc1dfff662954ea9095",
+    "/assets/img/avocado.png": "2776b863fd44b28797a5848201a14f7e7456e4f7",
+    "/assets/img/background-img.jpg": "88f4d07c751b2a4e37e79b79913dd84a73cae0f7",
+    "/assets/img/bananabread.png": "f57ce5b03b3c658ae055b93bea08ee0dcc603ba7",
+    "/assets/img/beefstroganoff": "5aba1f6d53ac0871df30807893846337c1ed7b41",
+    "/assets/img/beefstroganoff.png": "5aba1f6d53ac0871df30807893846337c1ed7b41",
+    "/assets/img/berryparfait.png": "654d6b42e62d8606d952aba69adeb8c0a48ff357",
+    "/assets/img/caesarsalad.png": "912d2ac6a36a894d319266ec888b63bad983a7df",
+    "/assets/img/capresesalad.png": "a2fc57860a3fde354911ed982c099f7db2d665be",
+    "/assets/img/chickenalfredo.png": "02c63ed595e7a48be39391207dc1b1dad4a3108f",
+    "/assets/img/chickencurry.png": "f9eddcf0083b4bfcf4e5c127ef3a1422e3afc9d2",
+    "/assets/img/classiccaesarsalad.png": "b26470740e4d47972e58c83a4082ba60ed0c0024",
+    "/assets/img/cookies.png": "92c95aa5d058c29e761840455ddc7e25d57f7437",
+    "/assets/img/eggplantparmesan.png": "63ade2b0e769df9cb90f1a72500555d879686319",
+    "/assets/img/friedrice.png": "5469efa9e45720ecc328aea5d71e6db4f207a94f",
+    "/assets/img/mangosmoothie.png": "d50c6a89950191bd0df280c8eb5592f47dd142a1",
+    "/assets/img/onionsoup.png": "6c6313c80b1cd47faf5fe62a2e25df15f35b6583",
+    "/assets/img/pumpkinsoup.png": "2ea45e807a77691ba20f4f7a121a2574bd242766",
+    "/assets/img/spaghettibolognese.png": "58dcab4358f8250a91757e38934d3d2c046d7aae",
+    "/assets/img/tacos.png": "e9be957a08926b95683c9e405bc51412b2d1296f",
+    "/assets/img/teriyakichicken.png": "b4f11c7d5c27e8790aae34c16f6c96058020169c",
+    "/assets/img/tikkamasala.png": "2ed2009327f10d3f70ff49f9a2f9194585ec9c22",
+    "/assets/img/veganchickpeacurry.png": "b39bf89d9481d2ee7d05a5be848c698be1f25b91",
+    "/assets/img/vegetablecurry.png": "d9227d5b393b11d2eadc449586dd5f3213d0cbc6",
+    "/assets/img/vegetablestirfry.png": "dc97d1d52d0c7b465bc04ba8ca735a2f7ccdd0d0",
+    "/assets/pfp-default/profile-icon.jpg": "70bfca34c762f790d2f8424fffb47ad88e306a02",
+    "/chunk-HOVKWKPF.js": "ac1871f0be26726f351d71f2ea5af2d818ef348b",
+    "/chunk-MEEFUR5Z.js": "dbff1936a6d00353a04c62bbff47bb16b3d66835",
+    "/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "/index.html": "55a86c4d33eacc66ebe371162be4b5de765a1bbe",
+    "/main-DPLOTYCP.js": "6432b8b1396faf6bee4c3a2e4f859d40010fb845",
+    "/manifest.webmanifest": "3dbe27b6c8796b0f139f0dbbe751c7d6a10ea15b",
+    "/polyfills-FFHMD2TL.js": "f49b49a155bc7d192db62a4c15d0a612b460a667",
+    "/styles-CUVLEEAA.css": "ba8822d2ac4608825c14142f8b5c5a62ca5868d9"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}

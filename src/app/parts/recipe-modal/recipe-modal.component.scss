@@ -1,0 +1,450 @@
+// Color Variables
+$cream-white: #fff5e6;
+$light-cream: #fff9f3;
+$orange-primary: #e09f56;
+$orange-secondary: #d35400;
+$orange-hover: #f78c45;
+$orange-light: rgba(224, 159, 86, 0.1);
+$text-dark: #666666;
+$error-color: #ff4d4f;
+
+// Enhanced animation keyframes
+@keyframes modalFadeIn {
+  0% { 
+    opacity: 0;
+    transform: translateY(50px) scale(0.85);
+    filter: blur(5px);
+  }
+  60% { 
+    opacity: 1;
+    transform: translateY(-15px) scale(1.03);
+    filter: blur(0);
+  }
+  80% { 
+    transform: translateY(5px) scale(0.99);
+  }
+  100% { 
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes backdropReveal {
+  0% { 
+    opacity: 0;
+    backdrop-filter: blur(0px); 
+  }
+  100% { 
+    opacity: 1;
+    backdrop-filter: blur(5px); 
+  }
+}
+
+@keyframes contentEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes buttonGlow {
+  0% { 
+    box-shadow: 0 4px 12px rgba(211, 84, 0, 0.2);
+    text-shadow: none;
+  }
+  50% { 
+    box-shadow: 0 6px 20px rgba(211, 84, 0, 0.4), 0 0 15px rgba(255, 153, 0, 0.4);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  }
+  100% { 
+    box-shadow: 0 4px 12px rgba(211, 84, 0, 0.2);
+    text-shadow: none;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+// Enhanced modal styling
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  font-family: 'Helvetica', sans-serif;
+  backdrop-filter: blur(3px);
+  transition: all 0.3s ease;
+
+  &.visible {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: backdropReveal 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+
+    .modal-content {
+      animation: modalFadeIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes contentFadeUp {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseAttention {
+  0% { transform: scale(1); box-shadow: 0 4px 12px rgba(211, 84, 0, 0.2); }
+  50% { transform: scale(1.05); box-shadow: 0 8px 20px rgba(211, 84, 0, 0.3); }
+  100% { transform: scale(1); box-shadow: 0 4px 12px rgba(211, 84, 0, 0.2); }
+}
+
+.modal-content {
+  background: linear-gradient(135deg, $light-cream 0%, $orange-primary 100%);
+  padding: 2.5rem;
+  border-radius: 16px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border: none;
+  transform: translateY(0);
+  transition: all 0.3s ease;
+  
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 245, 230, 0.5);
+    border-radius: 10px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(211, 84, 0, 0.3);
+    border-radius: 10px;
+    
+    &:hover {
+      background: rgba(211, 84, 0, 0.5);
+    }
+  }
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: none;
+  background: rgba(211, 84, 0, 0.1);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $orange-secondary;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(211, 84, 0, 0.2);
+    color: $orange-hover;
+    transform: rotate(90deg);
+  }
+}
+
+.recipe-details {
+  h2 {
+    margin-bottom: 0.5rem;
+    color: $orange-secondary;
+    font-size: 1.8rem;
+    border-bottom: 2px solid rgba(224, 159, 86, 0.3);
+    padding-bottom: 0.75rem;
+    animation: contentEntrance 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.1s both;
+  }
+
+  .recipe-meta {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    animation: contentEntrance 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.2s both;
+    
+    .category {
+      color: $text-dark;
+      font-size: 0.95rem;
+      background: $orange-light;
+      padding: 5px 12px;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      
+      i {
+        margin-right: 6px;
+        color: $orange-primary;
+      }
+    }
+  }
+
+  h3 {
+    margin: 1.75rem 0 0.75rem;
+    color: $orange-secondary;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    
+    i {
+      margin-right: 0.5rem;
+      font-size: 0.9em;
+    }
+  }
+
+  .description {
+    animation: contentEntrance 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.3s both;
+
+    p {
+      line-height: 1.6;
+      color: $text-dark;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 12px 15px;
+      border-radius: 8px;
+      border-left: 3px solid $orange-primary;
+    }
+  }
+
+  ul {
+    padding-left: 0.5rem;
+    margin: 0.75rem 0;
+    list-style: none;
+    animation: contentEntrance 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.4s both;
+
+    li {
+      margin: 0.75rem 0;
+      color: $text-dark;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      opacity: 0;
+      animation: contentEntrance 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      
+      @for $i from 1 through 20 {
+        &:nth-child(#{$i}) {
+          animation-delay: 0.5s + ($i * 0.08s);
+        }
+      }
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.9);
+        transform: translateX(8px);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      }
+      
+      .ingredient-amount {
+        font-weight: 600;
+        color: $orange-secondary;
+        margin-right: 8px;
+        min-width: 70px;
+      }
+      
+      .ingredient-name {
+        flex: 1;
+      }
+    }
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: 2.5rem;
+  color: $orange-secondary;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(211, 84, 0, 0.2);
+    border-top: 3px solid $orange-secondary;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}
+
+.error {
+  color: $error-color;
+  text-align: center;
+  padding: 1.25rem;
+  background: rgba(255, 77, 79, 0.1);
+  border-radius: 8px;
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+  }
+}
+
+// Enhanced View Full Recipe button
+.view-full-recipe {
+  margin-top: 2.5rem;
+  text-align: center;
+  animation: contentEntrance 0.7s cubic-bezier(0.23, 1, 0.32, 1) 1.2s both;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.view-button {
+  background: linear-gradient(135deg, #e09f56, #d35400, #e09f56);
+  background-size: 200% auto;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  animation: buttonGlow 3s infinite 2s;
+  
+  // Animated gradient background
+  &:hover {
+    background-size: 200% auto;
+    animation: shimmer 2s linear infinite;
+    box-shadow: 0 7px 20px rgba(211, 84, 0, 0.5), 0 0 20px rgba(255, 153, 0, 0.3);
+    transform: translateY(-5px) scale(1.05);
+    letter-spacing: 0.5px;
+    
+    i {
+      transform: rotate(10deg) scale(1.2);
+    }
+    
+    &:before {
+      opacity: 0.8;
+      transform: translateX(100%) rotate(20deg);
+    }
+  }
+  
+  &:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: 0 2px 10px rgba(211, 84, 0, 0.2);
+    transition: all 0.15s ease;
+  }
+  
+  i {
+    margin-right: 10px;
+    font-size: 1.2em;
+    transition: transform 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  }
+  
+  // Enhanced shine effect
+  &:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    opacity: 0.2;
+    transition: all 0.85s cubic-bezier(0.19, 1, 0.22, 1);
+    pointer-events: none;
+  }
+  
+  // Add subtle text shadow
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  
+  // Add a pulsing border
+  &:after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 34px;
+    background: linear-gradient(135deg, #ffd166, #f7b267, #ef8354);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover:after {
+    opacity: 0.4;
+    animation: pulseAttention 1.5s infinite;
+  }
+}
+
+// Add adaptive/responsive styles
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    padding: 1.75rem 1.25rem;
+    max-height: 90vh;
+  }
+  
+  .recipe-details h2 {
+    font-size: 1.5rem;
+  }
+  
+  .view-button {
+    width: 100%;
+    padding: 1rem 1.5rem;
+  }
+}

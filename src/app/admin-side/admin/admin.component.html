@@ -1,0 +1,130 @@
+<div class="admin-dashboard">
+  <div class="dashboard-header">
+    <h1 class="dashboard-title"><i class="fas fa-utensils icon-spacing"></i>Recipe Management</h1>
+    <button 
+      (click)="navigateToCreateRecipe()" 
+      class="create-recipe-btn">
+      <i class="fas fa-plus icon-spacing"></i>Add Admin Recipe
+    </button>
+  </div>
+
+  <!-- Update the stats container for better stacking on mobile -->
+  <div class="stats-container">
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-clipboard-list"></i></div>
+      <div class="stat-content">
+        <div class="stat-value">{{ recipes.length || 0 }}</div>
+        <div class="stat-label">Total Recipes</div>
+      </div>
+    </div>
+    <!-- Other stat cards -->
+  </div>
+
+  <!-- Update the filters container for better mobile layout -->
+
+  <!-- Search & Filter -->
+  <div class="filters-container">
+    <div class="search-container">
+      <i class="fas fa-search search-icon"></i>
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery"
+        placeholder="Search recipes..."
+        class="search-input"
+        (input)="filterRecipes()">
+    </div>
+    <div class="filter-container">
+      <select [(ngModel)]="categoryFilter" (change)="filterRecipes()" class="filter-select">
+        <option value="">All Categories</option>
+        <option *ngFor="let category of uniqueCategories" [value]="category">{{ category }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-indicator">
+    <div class="spinner"></div>
+    <p>Loading recipes...</p>
+  </div>
+
+  <!-- Recipes Table -->
+  <div *ngIf="!isLoading" class="table-container">
+    <table class="recipe-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Created At</th>
+          <th>Updated At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <!-- Update the mobile table-to-card display -->
+      <tbody>
+        <tr *ngFor="let recipe of paginatedRecipes; trackBy: trackByRecipe" class="recipe-row">
+          <td data-label="ID">{{ recipe.id }}</td>
+          <td data-label="Name" class="recipe-name">{{ recipe.name }}</td>
+          <td data-label="Category">
+            <span class="category-badge">{{ recipe.category }}</span>
+          </td>
+          <td data-label="Created At">{{ recipe.created_at | date:'short' }}</td>
+          <td data-label="Updated At">{{ recipe.updated_at | date:'short' }}</td>
+          <td data-label="Actions">
+            <div class="action-buttons">
+              <button 
+                (click)="viewRecipeDetails(recipe.id)"
+                class="view-btn" 
+                title="View Recipe">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button 
+                (click)="editRecipe(recipe.id)"
+                class="edit-btn"
+                title="Edit Recipe">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button 
+                (click)="confirmDeleteRecipe(recipe.id, recipe.name)"
+                class="delete-btn"
+                title="Delete Recipe">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && paginatedRecipes.length === 0" class="empty-state">
+    <i class="fas fa-utensils empty-icon"></i>
+    <h3>No recipes found</h3>
+    <p>Try adjusting your search or create a new recipe</p>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination-container" *ngIf="filteredRecipes.length > 0">
+    <button 
+  [disabled]="currentPage === 1"
+  (click)="prevPage()"
+  class="pagination-btn">
+  <i class="fas fa-chevron-left"></i>
+</button>
+<span class="page-indicator">Page {{ currentPage }} of {{ totalPages }}</span>
+<button 
+  [disabled]="currentPage === totalPages"
+  (click)="nextPage()"
+  class="pagination-btn">
+  <i class="fas fa-chevron-right"></i>
+</button>
+  </div>
+
+  <!-- Recipe Modal -->
+  <app-recipe-modal 
+    [recipeId]="selectedRecipeId"
+    [visible]="modalVisible" 
+    (close)="closeModal()">
+  </app-recipe-modal>
+</div>

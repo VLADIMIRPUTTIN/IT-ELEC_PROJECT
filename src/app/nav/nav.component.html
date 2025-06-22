@@ -1,0 +1,82 @@
+<!-- nav.component.html -->
+<div class="navbar">
+  <div class="nav-logo">
+    <img src="assets/img/FoodHub-Full.png" alt="Food Hub Logo">
+  </div>
+  
+  <div class="nav-links">
+    <a routerLink="/home" routerLinkActive="active">
+      <i class="icon fas fa-home"></i>
+      <span class="text">Home</span>
+    </a>
+    <a routerLink="/recipe" routerLinkActive="active">
+      <i class="icon fas fa-book"></i>
+      <span class="text">Recipe</span>
+    </a>
+    <a routerLink="/shared-recipes" routerLinkActive="active">
+      <i class="icon fas fa-share-alt"></i>
+      <span class="text">Shared Recipes</span>
+    </a>
+    <!-- <a routerLink="/about" routerLinkActive="active">
+      <i class="icon fas fa-info-circle"></i> 
+      <span class="text">About</span>
+    </a> -->
+    
+  </div>
+
+  <div class="profile-section">
+
+    <div class = "create-recipe">
+    <a routerLink="/ucreate-recipe" routerLinkActive="active">
+      <i class="icon fas fa-utensils"></i>
+      <span class="text">Create Your Recipe</span>
+    </a>
+
+    </div>
+    <div class="profile-container" (clickOutside)="closeProfileMenu()">
+      <div class="profile-image" (click)="navigateToProfile()">
+        <img [src]="getProfileImageUrl()" alt="User Profile">
+      </div>
+      <button class="dropdown-toggle" (click)="toggleProfileMenu()">
+        <i class="fas fa-chevron-down" [class.rotated]="isProfileMenuOpen"></i>
+      </button>
+      <div class="profile-dropdown" *ngIf="isProfileMenuOpen">
+        <button class="logout-btn" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Bottom Navbar for Mobile -->
+  <div class="bottom-navbar">
+    <a routerLink="/home" routerLinkActive="active" class="nav-item">
+      <i class="icon fas fa-home"></i>
+      <span class="text">Home</span>
+    </a>
+    <a routerLink="/recipe" routerLinkActive="active" class="nav-item">
+      <i class="icon fas fa-book"></i>
+      <span class="text">Recipe</span>
+    </a>
+    <!-- Added custom class "shared-recipes-btn" to the Shared Recipes link -->
+    <a routerLink="/shared-recipes" routerLinkActive="active" class="nav-item shared-recipes-btn">
+      <i class="icon fas fa-share-alt"></i>
+      <span class="text">Shared</span>
+    </a>
+    <!-- Create Recipe Button (Centered) -->
+    <a routerLink="/ucreate-recipe" class="create-recipe-btn">
+      <i class="icon fas fa-utensils"></i>
+    </a>
+    <!-- <a routerLink="/about" routerLinkActive="active" class="nav-item">
+      <i class="icon fas fa-info-circle"></i>
+      <span class="text">About</span>
+    </a> -->
+    <div class="nav-item" (click)="toggleProfileMenu()">
+      <div class="profile-image" (click)="navigateToProfile()">
+        <img [src]="getProfileImageUrl()" alt="Profile">
+      </div>
+      <span class="text">Profile</span>
+    </div>
+  </div>

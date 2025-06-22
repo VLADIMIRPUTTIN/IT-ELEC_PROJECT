@@ -1,0 +1,68 @@
+<div class="modal-overlay" *ngIf="isVisible">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Confirm Recipe Details</h2>
+    </div>
+    
+    <div class="recipe-preview">
+      <div class="recipe-basic-info">
+        <h3 class="recipe-name">{{ recipeData.previewData.name }}</h3>
+        <span class="recipe-category">{{ recipeData.previewData.category }}</span>
+        
+        <div class="recipe-description">
+          <p>{{ recipeData.previewData.description }}</p>
+        </div>
+      </div>
+      
+      <div *ngIf="recipeData.previewData.has_image" class="recipe-image-preview">
+        <img [src]="recipeData.previewData.image_preview" alt="Recipe preview">
+      </div>
+      
+      <div class="recipe-details">
+        <div class="ingredients-section">
+          <h4>Ingredients</h4>
+          <div class="ingredient-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Ingredient</th>
+                  <th>Amount</th>
+                  <th>Unit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let ingredient of recipeData.previewData.recipe_ingredients">
+                  <td>{{ ingredient.ingredient_name }}</td>
+                  <td>{{ ingredient.amount }}</td>
+                  <td>{{ ingredient.unit }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div class="preparation-section">
+          <h4>Preparation Steps</h4>
+          <ol class="steps-list">
+            <li *ngFor="let step of recipeData.previewData.preparation_steps; let i = index">
+              <div class="step-number">{{ i + 1 }}</div>
+              <div class="step-content">
+                <strong>{{ step.instruction }}</strong>
+                <p>{{ step.preparation }}</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal-actions">
+      <button class="action-button cancel-button" (click)="cancel()">
+        <i class="fas fa-arrow-left"></i> Edit Recipe
+      </button>
+      <button class="action-button confirm-button" (click)="confirm()">
+        <i class="fas fa-check"></i> Confirm & Save
+      </button>
+    </div>
+  </div>
+</div>

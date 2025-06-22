@@ -1,0 +1,271 @@
+<div class="admin-recipe-container">
+  <div class="admin-header">
+    <h1><i class="fas fa-utensils"></i> Add New Recipe</h1>
+    <button class="back-button" (click)="navigateToAdmin()">
+      <i class="fas fa-arrow-left"></i> Back to Admin Panel
+    </button>
+  </div>
+
+  <div class="recipe-form-container">
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+      <!-- Image Upload Section -->
+      <div class="form-group">
+        <label for="imageUpload" class="image-upload-label">
+          <i class="fas fa-camera"></i> Upload Recipe Image
+        </label>
+        <input
+          type="file"
+          id="imageUpload"
+          accept="image/jpeg,image/png,image/gif,image/webp"
+          (change)="onImageSelected($event)"
+          class="form-control image-upload"
+        >
+        <small class="text-muted">Maximum file size: 5MB. Supported formats: JPEG, PNG, GIF, WebP</small>
+        
+        <div *ngIf="imagePreviewUrl" class="image-preview-container">
+          <img [src]="imagePreviewUrl" alt="Recipe preview" class="image-preview">
+          <button type="button" class="remove-image-btn" (click)="removeImage()">
+            <i class="fas fa-times"></i> Remove Image
+          </button>
+        </div>
+      
+        <div *ngIf="submissionError" class="error-message">
+          {{ submissionError }}
+        </div>
+      </div>
+
+      <!-- Basic Recipe Information -->
+      <div class="form-section">
+        <h3>Basic Information</h3>
+        
+        <div class="form-group">
+          <label for="recipeName">Recipe Name</label>
+          <input 
+            id="recipeName" 
+            type="text" 
+            formControlName="name" 
+            placeholder="Enter recipe name"
+            class="form-control">
+          <div *ngIf="recipeForm.get('name')?.invalid && recipeForm.get('name')?.touched" class="error-message">
+            Recipe name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select 
+            id="category"
+            formControlName="category" 
+            class="form-control">
+            <option value="">Select Category</option>
+            <option *ngFor="let category of recipeCategories" [value]="category.toLowerCase()">{{ category }}</option>
+          </select>
+          <div *ngIf="recipeForm.get('category')?.invalid && recipeForm.get('category')?.touched" class="error-message">
+            Category is required
+          </div>
+        </div>        
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea 
+            id="description"
+            formControlName="description" 
+            rows="3"
+            placeholder="Describe your recipe"
+            class="form-control"></textarea>
+          <div *ngIf="recipeForm.get('description')?.invalid && recipeForm.get('description')?.touched" class="error-message">
+            Description is required
+          </div>
+        </div>
+      </div>
+
+      <!-- Ingredients Section -->
+      <div class="form-section">
+        <h3>Ingredients</h3>
+
+        <div formArrayName="ingredients">
+          <div *ngFor="let ingredient of ingredients.controls; let i=index" 
+              [formGroupName]="i" 
+              class="ingredient-row">
+
+            <!-- Amount Input -->
+            <div class="form-group amount-input">
+              <label [for]="'amount-' + i">Amount</label>
+              <input 
+                [id]="'amount-' + i"
+                type="text"
+                formControlName="amount"
+                placeholder="1, 0.5, 1/2"
+                class="form-control">
+
+              <div *ngIf="ingredient.get('amount')?.errors?.['invalidFraction'] && ingredient.get('amount')?.touched" 
+                  class="error-message">
+                Invalid format. Use whole numbers or fractions (e.g. 1, 0.5, 1/2, 1 1/2)
+              </div>
+
+              <div *ngIf="ingredient.get('amount')?.errors?.['divisionByZero'] && ingredient.get('amount')?.touched" 
+                  class="error-message">
+                Denominator cannot be zero
+              </div>
+            </div>
+  
+            <!-- Unit Selection -->
+            <div class="form-group unit-select">
+              <ng-container *ngIf="!showCustomUnitInput[i]">
+                <label [for]="'unit-' + i">Unit</label>
+                <select 
+                  [id]="'unit-' + i"
+                  formControlName="unit"
+                  class="form-control"
+                  (change)="onUnitChange(i, $event)">
+                  <option value="">Select Unit</option>
+                  <option *ngFor="let unit of measurementUnits" [value]="unit">
+                    {{ unit === 'custom' ? 'Custom Unit...' : unit }}
+                  </option>
+                </select>
+                <div *ngIf="ingredient.get('unit')?.invalid && ingredient.get('unit')?.touched" 
+                    class="error-message">
+                  Unit is required
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="showCustomUnitInput[i]">
+                <label [for]="'customUnit-' + i">Custom Unit</label>
+                <div class="custom-unit-container">
+                  <input 
+                    [id]="'customUnit-' + i"
+                    type="text"
+                    formControlName="customUnit"
+                    placeholder="Enter unit"
+                    class="form-control">
+                  <button 
+                    type="button" 
+                    class="btn-cancel-custom"
+                    (click)="toggleCustomUnit(i)">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+                <div *ngIf="ingredient.get('customUnit')?.invalid && ingredient.get('customUnit')?.touched" 
+                    class="error-message">
+                  Custom unit is required
+                </div>
+              </ng-container>
+            </div>
+
+            <!-- Ingredient Name Input -->
+            <div class="form-group ingredient-input">
+              <label [for]="'ingredientName-' + i">Ingredient</label>
+              <input 
+                [id]="'ingredientName-' + i"
+                type="text"
+                formControlName="ingredientName"
+                [attr.list]="'ingredientsList-' + i"
+                placeholder="Enter ingredient"
+                class="form-control">
+              
+              <datalist [id]="'ingredientsList-' + i">
+                <option *ngFor="let ing of availableIngredients" [value]="ing.name">
+                  {{ ing.name }}
+                </option>
+              </datalist>
+              
+              <div *ngIf="ingredient.get('ingredientName')?.invalid && ingredient.get('ingredientName')?.touched" 
+                  class="error-message">
+                Ingredient name is required
+              </div>
+            </div>
+
+            <button type="button" 
+                    (click)="removeIngredient(i)"
+                    class="remove-ingredient-btn">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
+        </div>
+  
+        <button type="button" 
+                (click)="addIngredient()"
+                class="add-button">
+          <i class="fas fa-plus"></i> Add Ingredient
+        </button>
+      </div>
+
+      <!-- Cooking Steps -->
+      <div class="form-section">
+        <h3>Preparation Steps</h3>
+
+        <div formArrayName="steps">
+          <div *ngFor="let step of steps.controls; let i=index" 
+               [formGroupName]="i" 
+               class="step-card">
+            <div class="step-header">
+              <h4>Step {{ i + 1 }}</h4>
+              <button type="button" 
+                      (click)="removeStep(i)"
+                      class="remove-step-btn">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+
+            <div class="step-content">
+              <div class="form-group">
+                <label [for]="'instruction-' + i">Instruction Title</label>
+                <input 
+                  [id]="'instruction-' + i"
+                  type="text"
+                  formControlName="instruction"
+                  placeholder="e.g. Chop vegetables"
+                  class="form-control">
+                <div *ngIf="steps.at(i).get('instruction')?.invalid && steps.at(i).get('instruction')?.touched" 
+                     class="error-message">
+                  Instruction title is required
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label [for]="'preparation-' + i">Detailed Instructions</label>
+                <textarea 
+                  [id]="'preparation-' + i"
+                  formControlName="preparation"
+                  rows="3"
+                  placeholder="Describe the step in detail"
+                  class="form-control"></textarea>
+                <div *ngIf="steps.at(i).get('preparation')?.invalid && steps.at(i).get('preparation')?.touched" 
+                     class="error-message">
+                  Detailed instructions are required
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <button type="button" 
+                (click)="addStep()"
+                class="add-button">
+          <i class="fas fa-plus"></i> Add Step
+        </button>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-actions">
+        <button type="button" 
+                class="cancel-button"
+                (click)="cancelAndReturn()">
+          Cancel
+        </button>
+        <button type="submit" 
+                [disabled]="!recipeForm.valid || ingredients.length === 0 || steps.length === 0"
+                class="submit-button">
+          <i class="fas fa-save"></i> Save Recipe
+        </button>
+      </div>
+    </form>
+    
+    <!-- Recipe Confirmation Modal -->
+    <app-recipe-confirmation-modal 
+      [isVisible]="showConfirmationModal"
+      [recipeData]="preparedRecipeData"
+      (confirmEvent)="handleModalConfirmation($event)">
+    </app-recipe-confirmation-modal>
+  </div>
+</div>

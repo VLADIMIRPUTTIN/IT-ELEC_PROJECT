@@ -1,0 +1,32 @@
+<div class="rating-modal-backdrop" *ngIf="visible" (click)="onClose()"></div>
+<div class="rating-modal" *ngIf="visible">
+  <h3>Rate this Recipe</h3>
+  <div class="stars"
+       (mouseleave)="hovered = 0">
+    <span *ngFor="let star of [1,2,3,4,5]; let i = index"
+          (mouseenter)="hovered = star"
+          (click)="setRating(star)"
+          [ngClass]="{
+            'star-selected': (hovered || selectedRating) >= star,
+            'star-hovered': hovered >= star
+          }"
+          class="star"
+          tabindex="0"
+          (keydown.enter)="setRating(star)">
+      &#9733;
+    </span>
+  </div>
+  <div *ngIf="selectedRating" class="selected-label">
+    You selected: <b>{{ selectedRating }}</b> star{{ selectedRating > 1 ? 's' : '' }}
+  </div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  
+  <div class="button-group">
+    <button class="submit-btn" (click)="submitRating()" [disabled]="submitting">
+      <i class="fas fa-check"></i> Submit
+    </button>
+    <button class="cancel-btn" (click)="onClose()" [disabled]="submitting">
+      <i class="fas fa-times"></i> Cancel
+    </button>
+  </div>
+</div>

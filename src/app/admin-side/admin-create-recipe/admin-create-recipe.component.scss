@@ -1,0 +1,316 @@
+.admin-recipe-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #eee;
+
+  h1 {
+    color: #333;
+    font-size: 24px;
+    
+    i {
+      color: #ff6b6b;
+      margin-right: 10px;
+    }
+  }
+
+  .back-button {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px 15px;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: #e9ecef;
+      border-color: #ced4da;
+    }
+    
+    i {
+      margin-right: 5px;
+    }
+  }
+}
+
+.recipe-form-container {
+  position: relative;
+
+  .form-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+
+    h3 {
+      color: #444;
+      font-size: 18px;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: border 0.2s ease;
+      
+      &:focus {
+        outline: none;
+        border-color: #ff6b6b;
+        box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+      }
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .error-message {
+      color: #dc3545;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+  }
+
+  .image-upload-label {
+    display: inline-block;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: #ff6b6b;
+  }
+
+  .image-upload {
+    margin-bottom: 10px;
+  }
+
+  .image-preview-container {
+    margin: 15px 0;
+    position: relative;
+    display: inline-block;
+    
+    .image-preview {
+      max-width: 200px;
+      max-height: 200px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+    
+    .remove-image-btn {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      
+      &:hover {
+        background: #e65c5c;
+      }
+    }
+  }
+
+  // Ingredients Section
+  .ingredient-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr auto;
+    gap: 15px;
+    margin-bottom: 15px;
+    align-items: end;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
+
+    .remove-ingredient-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      &:hover {
+        background: #c82333;
+      }
+    }
+  }
+
+  .custom-unit-container {
+    display: flex;
+    gap: 5px;
+
+    .btn-cancel-custom {
+      background: #6c757d;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      width: 38px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      &:hover {
+        background: #5a6268;
+      }
+    }
+  }
+
+  // Steps Section
+  .step-card {
+    background: #f9f9f9;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-left: 3px solid #ff6b6b;
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      
+      h4 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      
+      .remove-step-btn {
+        background: transparent;
+        color: #dc3545;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        transition: color 0.2s ease;
+        
+        &:hover {
+          color: #c82333;
+        }
+      }
+    }
+  }
+
+  .add-button {
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    
+    &:hover {
+      background: #218838;
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+
+    .cancel-button {
+      background: #6c757d;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      
+      &:hover {
+        background: #5a6268;
+      }
+    }
+
+    .submit-button {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      
+      &:hover {
+        background: #ff5252;
+      }
+      
+      &:disabled {
+        background: #f8f9fa;
+        color: #adb5bd;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    
+    button {
+      width: 100%;
+    }
+  }
+}

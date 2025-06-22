@@ -1,31 +1,122 @@
-<div class="home-wrapper">
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-      <div class="nav-left">
-        <div class="nav-logo">Recipe Finder</div>
-        <div class="nav-links">
-          <a href="#">Home</a>
-          <a href="#">Recipes</a>
-          <a href="#">About</a>
+<app-nav></app-nav>
+
+<div class="landing-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Transform Your Ingredients into Delicious Meals</h1>
+        <p>Discover h
+          recipes based on what's already in your kitchen. 
+          Save time, reduce waste, and cook with confidence.</p>
+        <div class="cta-buttons">
+          <button class="btn-primary" routerLink="/recipe">Get Started</button>
+          <button class="btn-secondary"  routerLink="/about">Learn More</button>
         </div>
       </div>
-  
-      <div class="nav-search">
-        <input
-          type="text"
-          placeholder="Search by ingredients..."
-          class="nav-search-bar"
-        />
-        <button class="nav-search-button">Search</button>
-      </div>
-    </nav>
-  
-    <!-- Main Content -->
-    <div class="main-content">
-      <h1 class="welcome-title">Welcome to Recipe Finder!</h1>
-      <p class="welcome-message">
-        Discover delicious recipes based on the ingredients you have at home. Start by entering ingredients into the search bar above.
-      </p>
     </div>
-  </div>
-  
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <h2>Why Choose FoodHub?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-search"></i>
+          </div>
+          <h3>Smart Ingredient Search</h3>
+          <p>Enter your available ingredients and instantly discover recipes you can make right now.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Personalized Collections</h3>
+          <p>Save your favorite recipes and create custom collections for quick access.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-hat-chef"></i>
+          </div>
+          <h3>Step-by-Step Guides</h3>
+          <p>Follow detailed instructions with timing and tips from experienced chefs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works-section">
+    <div class="container">
+      <h2>How FoodHub Works</h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-icon"><i class="fas fa-carrot"></i></div>
+          <h3>Enter Ingredients</h3>
+          <p>List what you have in your kitchen</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-icon"><i class="fas fa-search"></i></div>
+          <h3>Discover Recipes</h3>
+          <p>Browse matching recipes instantly</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-icon"><i class="fas fa-utensils"></i></div>
+          <h3>Choose & Cook</h3>
+          <p>Select and follow easy instructions</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <div class="step-icon"><i class="fas fa-heart"></i></div>
+          <h3>Share & Save</h3>
+          <p>Keep your favorites for later</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Section -->
+  <!-- <section class="community-section">
+    <div class="container">
+      <div class="community-grid">
+        <div class="community-text">
+          <h2>Join Our Growing Community</h2>
+          <p>Connect with food lovers, share recipes, and get inspired by our community of home chefs. 
+            With thousands of active users sharing their culinary experiences, you'll never run out of cooking ideas.</p>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <h4>10k+</h4>
+              <p>Active Users</p>
+            </div>
+            <div class="stat-item">
+              <h4>5k+</h4>
+              <p>Recipes</p>
+            </div>
+            <div class="stat-item">
+              <h4>4.8★</h4>
+              <p>User Rating</p>
+            </div>
+          </div>
+        </div>
+        <div class="community-image">
+          <img src="assets/img/community.jpg" alt="FoodHub Community">
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Start Cooking with FoodHub Today</h2>
+      <p>Join thousands of happy home chefs who are already turning their ingredients into amazing meals.</p>
+      <button class="btn-primary" routerLink="/register">Create Account</button>
+    </div>
+  </section>
+</div>
