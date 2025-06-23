@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="admin-dashboard">
   <div class="dashboard-header">
     <h1 class="dashboard-title"><i class="fas fa-utensils icon-spacing"></i>Recipe Management</h1>
@@ -122,6 +123,72 @@
   </div>
 
   <!-- Recipe Modal -->
+=======
+<div class="container mx-4 my-6">
+  <h1 class="text-2xl font-bold mb-4">Recipe Management</h1>
+  
+  <div class="mb-4">
+    <button 
+      (click)="navigateToCreateRecipe()" 
+      class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+    >
+      Create New Recipe
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="text-center">
+    <p>Loading recipes...</p>
+  </div>
+
+  <table *ngIf="!loading" class="w-full border-collapse">
+    <thead>
+      <tr class="bg-gray-200">
+        <th class="border p-2">ID</th>
+        <th class="border p-2">Name</th>
+        <th class="border p-2">Category</th>
+        <th class="border p-2">Created At</th>
+        <th class="border p-2">Updated At</th>
+        <th class="border p-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let recipe of recipes" class="hover:bg-gray-100">
+        <td class="border p-2">{{ recipe.id }}</td>
+        <td class="border p-2">{{ recipe.name }}</td>
+        <td class="border p-2">{{ recipe.category }}</td>
+        <td class="border p-2">{{ recipe.created_at | date:'medium' }}</td>
+        <td class="border p-2">{{ recipe.updated_at | date:'medium' }}</td>
+        <td class="border p-2">
+          <div class="flex space-x-2">
+            <button 
+              (click)="viewRecipeDetails(recipe.id)"
+              class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+            >
+              View
+            </button>
+            <button 
+              (click)="editRecipe(recipe.id)"
+              class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
+            >
+              Edit
+            </button>
+            <button 
+              (click)="deleteRecipe(recipe.id)"
+              class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+            >
+              Delete
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && recipes.length === 0" class="text-center text-gray-500 mt-4">
+    No recipes found.
+  </div>
+
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   <app-recipe-modal 
     [recipeId]="selectedRecipeId"
     [visible]="modalVisible" 

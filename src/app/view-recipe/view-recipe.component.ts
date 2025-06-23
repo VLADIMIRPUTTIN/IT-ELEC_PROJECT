@@ -41,6 +41,7 @@ export class ViewRecipeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+<<<<<<< HEAD
     // Get any navigation state
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as { isSharedRecipe?: boolean };
@@ -53,10 +54,20 @@ export class ViewRecipeComponent implements OnInit {
       const recipeId = +params['id'];
       if (recipeId) {
         this.loadRecipe(recipeId, isSharedRecipe);
+=======
+    this.route.params.subscribe(params => {
+      const recipeId = +params['id'];
+      // Check if this is a user recipe from route parameters
+      this.isUserRecipe = this.route.snapshot.data['isUserRecipe'] || false;
+      
+      if (recipeId) {
+        this.loadRecipe(recipeId);
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
       }
     });
   }
 
+<<<<<<< HEAD
   loadRecipe(recipeId: number, isSharedRecipe: boolean = false): void {
     this.loading = true;
     this.error = null;
@@ -70,6 +81,15 @@ export class ViewRecipeComponent implements OnInit {
     } else {
       request = this.dataService.getRecipe(recipeId);
     }
+=======
+  loadRecipe(recipeId: number): void {
+    this.loading = true;
+    this.error = null;
+  
+    const request = this.isUserRecipe ? 
+      this.dataService.getRecipeView(recipeId, this.authService.getCurrentUserId(), true) :
+      this.dataService.getRecipe(recipeId);
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   
     request.subscribe({
       next: (response) => {
@@ -108,6 +128,7 @@ export class ViewRecipeComponent implements OnInit {
             preparationSteps = response.recipe.preparation_steps;
           }
   
+<<<<<<< HEAD
           // Update the image URL determination logic
           let imageUrl = '';
           console.log('Recipe image data:', {
@@ -126,13 +147,27 @@ export class ViewRecipeComponent implements OnInit {
               imageUrl = `https://userirecipeimage.foodhubrecipe.shop/${response.recipe.image}`;
             }
             console.log('Using recipe image URL:', imageUrl);
+=======
+          // Handle image data from base64 or URL
+          let imageUrl = '';
+          if (response.recipe.image_data) {
+            // If image_data is base64 encoded
+            imageUrl = `data:image/jpeg;base64,${response.recipe.image_data}`;
+          } else if (response.recipe.image) {
+            // If image is a filename, construct full URL
+            imageUrl = `http://localhost/FoodHub/src/assets/img/${response.recipe.image}`;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
           }
   
           this.recipe = {
             ...response.recipe,
             ingredients_list: ingredientsList,
             preparation_steps: preparationSteps,
+<<<<<<< HEAD
             image: imageUrl // Set the processed image URL
+=======
+            image: imageUrl // Include the processed image URL or base64 data
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
           };
         } else {
           this.error = 'Recipe not found';
@@ -183,6 +218,7 @@ export class ViewRecipeComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/recipe']);
   }
+<<<<<<< HEAD
 
   handleImageError(event: any): void {
     console.log('Image failed to load, trying alternatives');
@@ -228,4 +264,6 @@ export class ViewRecipeComponent implements OnInit {
       console.log('Using default image');
     }
   }
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 }

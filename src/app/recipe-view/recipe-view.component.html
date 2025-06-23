@@ -1,0 +1,52 @@
+<div class="recipe-view-container">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading recipe...</p>
+    </div>
+  
+    <!-- Error State -->
+    <div *ngIf="error" class="error-container">
+      <p class="error-message">{{ error }}</p>
+    </div>
+  
+    <!-- Recipe Content -->
+    <div *ngIf="recipe && !loading" class="recipe-content">
+      <!-- Header Section -->
+      <header class="recipe-header">
+        <h1 class="recipe-title">{{ recipe.name }}</h1>
+        <span class="recipe-category">{{ recipe.category }}</span>
+      </header>
+  
+      <!-- Description Section -->
+      <section class="recipe-description">
+        <p>{{ recipe.description }}</p>
+      </section>
+  
+      <!-- Ingredients Section -->
+      <section class="ingredients-section">
+        <h2>Ingredients</h2>
+        <ul class="ingredients-list">
+          <li *ngFor="let item of recipe.ingredients_list" class="ingredient-item">
+            <span class="amount">{{ formatAmount(item.amount) }}</span>
+            <span class="unit">{{ item.unit }}</span>
+            <span class="ingredient">{{ item.ingredient_name }}</span>
+          </li>
+        </ul>
+      </section>
+  
+      <!-- Preparation Steps Section -->
+      <section class="preparation-section">
+        <h2>Instructions</h2>
+        <div class="steps-list">
+          <div *ngFor="let step of recipe.preparation_steps" class="step-item">
+            <div class="step-header">
+              <span class="step-number">{{ step.step_number }}</span>
+              <h3 class="step-title">{{ step.instruction }}</h3>
+            </div>
+            <p class="step-description">{{ step.preparation }}</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>

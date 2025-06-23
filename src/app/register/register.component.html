@@ -2,6 +2,7 @@
   <div class="register-left">
     <div class="image-container">
       <div class="dark-overlay"></div>
+<<<<<<< HEAD
       <img class="register-image" src="assets/bg_img/dimsum.jpg" alt="Food Image">
       <img class="logo-top-right" src="assets/img/FoodHub.png" alt="FoodHub Logo">
     </div>
@@ -9,6 +10,15 @@
 
   <div class="register-right">
     <h2 class="registration-title">Create Account</h2>
+=======
+      <img class="register-image" src="assets/bg_img/dimsum.jpg" alt="Image">
+    </div>
+    <img class="logo-top-right" src="assets/img/FoodHub.png" alt="Logo">
+  </div>
+
+  <div class="register-right">
+    <h2 class="registration-title">Join Us</h2>
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
     <!-- Registration Form -->
     <form (ngSubmit)="register()" #registerForm="ngForm">
@@ -73,7 +83,11 @@
       </div>
     
       <!-- Submit Button -->
+<<<<<<< HEAD
       <button type="submit" class="submit-button" [disabled]="registerForm.invalid">CREATE ACCOUNT</button>
+=======
+      <button type="submit" class="submit-button" [disabled]="registerForm.invalid">Register</button>
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     </form>
 
     <!-- Display error or success message -->
@@ -81,7 +95,11 @@
     <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
 
     <div class="login-link">
+<<<<<<< HEAD
       <p>Already have an account? <a routerLink="/login">Sign In</a></p>
+=======
+      <p>Already have an account? <a routerLink="/login">Login</a></p>
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     </div>
   </div>
 </div>

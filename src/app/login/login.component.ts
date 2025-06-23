@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Component, OnInit, NgZone } from '@angular/core';
+=======
+import { Component } from '@angular/core';
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
@@ -7,12 +11,17 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+<<<<<<< HEAD
 export class LoginComponent implements OnInit {
+=======
+export class LoginComponent {
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   email: string = '';
   password: string = '';
   errorMessage: string = '';
   successMessage: string = '';
 
+<<<<<<< HEAD
   constructor(
     private authService: AuthService, 
     private router: Router,
@@ -23,6 +32,9 @@ export class LoginComponent implements OnInit {
     // Load Google script and render button when page loads
     this.loadGoogleScript();
   }
+=======
+  constructor(private authService: AuthService, private router: Router) {}
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
   login() {
     if (!this.email || !this.password) {
@@ -60,6 +72,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
+<<<<<<< HEAD
   // Initialize Google Sign-In
   initGoogleSignIn() {
     // Make sure window.google is available (added by the Google script)
@@ -153,12 +166,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   private clearMessagesAfterDelay() {
     setTimeout(() => {
       this.successMessage = '';
       this.errorMessage = '';
     }, 3000);
   }
+<<<<<<< HEAD
 
   // Add this new method for better Google script loading
   loadGoogleScript() {
@@ -230,4 +246,6 @@ declare global {
   interface Window {
     google: any;
   }
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 }

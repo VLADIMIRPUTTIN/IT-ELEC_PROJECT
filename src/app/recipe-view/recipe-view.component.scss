@@ -1,0 +1,171 @@
+// Variables
+$primary-color: #2c3e50;
+$secondary-color: #34495e;
+$accent-color: #e67e22;
+$background-color: #f5f6fa;
+$text-color: #2c3e50;
+$border-radius: 8px;
+$spacing-unit: 1rem;
+
+// Mixins
+@mixin card-shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+// Container Styles
+.recipe-view-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: $spacing-unit * 2;
+  background-color: white;
+  border-radius: $border-radius;
+  @include card-shadow;
+  animation: fadeIn 0.5s ease-out;
+}
+
+// Loading State
+.loading-container {
+  text-align: center;
+  padding: $spacing-unit * 3;
+  animation: scaleIn 0.3s ease-out;
+
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid $accent-color;
+    border-radius: 50%;
+    margin: 0 auto $spacing-unit;
+    animation: spin 1s linear infinite;
+  }
+}
+
+// Error State
+.error-container {
+  padding: $spacing-unit * 2;
+  text-align: center;
+  color: #e74c3c;
+  animation: scaleIn 0.3s ease-out;
+}
+
+// Recipe Content
+.recipe-content {
+  .recipe-header {
+    margin-bottom: $spacing-unit * 2;
+    animation: slideInRight 0.5s ease-out;
+
+    .recipe-title {
+      font-size: 2.5rem;
+      color: $primary-color;
+      margin-bottom: $spacing-unit;
+    }
+
+    .recipe-category {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: $accent-color;
+      color: white;
+      border-radius: $border-radius;
+      font-size: 0.9rem;
+    }
+  }
+
+  .recipe-description {
+    margin-bottom: $spacing-unit * 3;
+    line-height: 1.6;
+    color: $text-color;
+    animation: slideInLeft 0.5s ease-out;
+  }
+}
+
+// Ingredients Section
+.ingredients-section {
+  margin-bottom: $spacing-unit * 3;
+  animation: slideInRight 0.5s ease-out;
+
+  h2 {
+    color: $primary-color;
+    margin-bottom: $spacing-unit;
+  }
+
+  .ingredients-list {
+    list-style: none;
+    padding: 0;
+
+    .ingredient-item {
+      padding: $spacing-unit;
+      margin-bottom: $spacing-unit;
+      background-color: $background-color;
+      border-radius: $border-radius;
+      display: flex;
+      align-items: center;
+      animation: fadeIn 0.3s ease-out;
+
+      .amount {
+        font-weight: bold;
+        margin-right: 0.5rem;
+      }
+
+      .unit {
+        color: $secondary-color;
+        margin-right: 0.5rem;
+      }
+
+      .ingredient {
+        color: $text-color;
+      }
+    }
+  }
+}
+
+// Preparation Steps
+.preparation-section {
+  animation: slideInLeft 0.5s ease-out;
+
+  h2 {
+    color: $primary-color;
+    margin-bottom: $spacing-unit;
+  }
+
+  .steps-list {
+    .step-item {
+      margin-bottom: $spacing-unit * 2;
+      animation: fadeIn 0.3s ease-out;
+
+      .step-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: $spacing-unit;
+
+        .step-number {
+          width: 30px;
+          height: 30px;
+          background-color: $accent-color;
+          color: white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: $spacing-unit;
+        }
+
+        .step-title {
+          color: $primary-color;
+          margin: 0;
+        }
+      }
+
+      .step-description {
+        color: $text-color;
+        line-height: 1.6;
+        margin-left: calc(30px + #{$spacing-unit});
+      }
+    }
+  }
+}
+
+// Additional Animations
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

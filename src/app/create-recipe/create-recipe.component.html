@@ -5,6 +5,7 @@
   
       <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
 
+<<<<<<< HEAD
         <div class="form-group">
           <!-- <label for="imageUpload">Recipe Image (Optional)</label> -->
           <input
@@ -25,6 +26,21 @@
         
           <div *ngIf="submissionError" class="alert alert-danger mt-2">
             {{ submissionError }}
+=======
+        <div class="image-upload-section">
+          <label for="imageUpload">Recipe Image (optional)</label>
+          <input 
+            type="file" 
+            id="imageUpload" 
+            (change)="onImageSelected($event)" 
+            accept="image/jpeg,image/png,image/gif,image/webp"
+          >
+          
+          <!-- Image preview -->
+          <div *ngIf="imagePreviewUrl" class="image-preview">
+            <img [src]="imagePreviewUrl" alt="Recipe Preview">
+            <button (click)="removeImage()">Remove Image</button>
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
           </div>
         </div>
 

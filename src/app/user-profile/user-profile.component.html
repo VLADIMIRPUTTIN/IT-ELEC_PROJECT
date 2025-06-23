@@ -26,6 +26,7 @@
           <h2 class="section-title">Profile Details</h2>
           
           <div *ngIf="!isEditing" class="view-mode">
+<<<<<<< HEAD
             <p><strong>Username:</strong> {{ userProfile?.username || 'Loading...' }}</p>
             <p><strong>Email:</strong> {{ userProfile?.email || 'Loading...' }}</p>
             <button 
@@ -33,6 +34,15 @@
               class="edit-button enhanced-edit-btn"
             >
               <i class="fas fa-user-edit"></i> Edit Profile
+=======
+            <p><strong>Username:</strong> {{ userProfile.username }}</p>
+            <p><strong>Email:</strong> {{ userProfile.email }}</p>
+            <button 
+              (click)="isEditing = true" 
+              class="edit-button"
+            >
+              Edit Profile
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             </button>
           </div>
   
@@ -101,7 +111,11 @@
               </button>
               <button 
                 type="button"
+<<<<<<< HEAD
                 (click)="confirmCancelEdit()"
+=======
+                (click)="isEditing = false"
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
                 class="cancel-button"
               >
                 Cancel
@@ -115,6 +129,7 @@
           <h2 class="section-title">My Recipes</h2>
           
           <div *ngIf="userRecipes.length === 0" class="no-recipes">
+<<<<<<< HEAD
             <p>You haven't created any recipes yet.</p>
             
           </div>
@@ -142,6 +157,36 @@
               </div>
             </div>
           </div>
+=======
+            No recipes created yet
+          </div>
+          
+          <div *ngFor="let recipe of userRecipes" class="recipe-card">
+            <h3>{{ recipe.name }}</h3>
+            <p class="recipe-category">{{ recipe.category }}</p>
+            <p class="recipe-description">{{ recipe.description }}</p>
+            <div class="recipe-actions">
+               <button 
+                    (click)="viewFullRecipe(recipe.id)"
+                    class="view-button"
+                >
+                    View
+                </button>
+                <button 
+                    (click)="editRecipe(recipe.id)"
+                    class="edit-button"
+                >
+                    Edit
+                </button>
+                <button 
+                    (click)="deleteRecipe(recipe.id)"
+                    class="delete-button"
+                >
+                    Delete
+                </button>
+            </div>
+        </div>
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         </div>
       </div>
     </div>

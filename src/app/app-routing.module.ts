@@ -14,12 +14,15 @@ import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
 import { AdminComponent } from './admin-side/admin/admin.component';
 import { RecipeModalComponent } from './parts/recipe-modal/recipe-modal.component';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
+<<<<<<< HEAD
 import { AdminLoginComponent } from './admin-side/admin-login/admin-login.component';
 import { AdminRegisterComponent } from './admin-side/admin-register/admin-register.component';
 import { AuthGuard } from './auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { SharedRecipesComponent } from './shared-recipes/shared-recipes.component';
 import { AdminCreateRecipeComponent } from './admin-side/admin-create-recipe/admin-create-recipe.component';
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,13 +34,18 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'create-recipe', component: CreateRecipeComponent },
   { path: 'ucreate-recipe', component: UserCreateRecipeComponent },
+<<<<<<< HEAD
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin-login', component: AdminLoginComponent },
   { path: 'admin-register', component: AdminRegisterComponent },
+=======
+  { path: 'admin', component: AdminComponent },
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   { path: 'user-recipe', component: UserRecipeComponent },
   { path: 'user-profile', component: UserProfileComponent},
   { path: 'edit-recipe/:id', component: EditRecipeComponent },
   { path: 'view-recipe/:id', component: ViewRecipeComponent },
+<<<<<<< HEAD
   { path: 'view-user-recipe/:id', component: ViewRecipeComponent, data: { isUserRecipe: true }},
   { path: 'shared-recipes', component: SharedRecipesComponent },
   { path: 'view-shared-recipe/:id', component: ViewRecipeComponent },
@@ -47,6 +55,11 @@ const routes: Routes = [
     component: AdminCreateRecipeComponent,
     canActivate: [AdminGuard]  // Assuming you have an admin auth guard
   }
+=======
+  { path: 'view-user-recipe/:id', component: ViewRecipeComponent, data: { isUserRecipe: true }}
+  // { path: 'view-recipe', component: RecipeViewComponent }
+  // // { path: 'view-recipe/:id', component: RecipeViewComponent }
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 ];
 
 @NgModule({

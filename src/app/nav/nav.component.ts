@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Component, ElementRef, EventEmitter, HostListener, Output, OnInit, OnDestroy } from '@angular/core';
+=======
+import { Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -7,12 +11,17 @@ import { AuthService } from '../auth.service';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
+<<<<<<< HEAD
 export class NavComponent implements OnInit, OnDestroy {
+=======
+export class NavComponent {
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   @Output() searchEvent = new EventEmitter<string>(); // Event emitter for search
   isSearchVisible = false;
   isMobile = window.innerWidth <= 768;
   searchQuery = '';
   isProfileMenuOpen = false;
+<<<<<<< HEAD
   profileImage: string | null = null; 
   
   // Add new property to track if profile image has been loaded
@@ -87,6 +96,11 @@ export class NavComponent implements OnInit, OnDestroy {
     // Return the complete URL - the subdomain already points to the profiles directory
     return 'https://profile.foodhubrecipe.shop/' + imagePath;
   }
+=======
+  profileImage: string | null = null; // Set this based on your user service
+
+  constructor(private eRef: ElementRef,  private router: Router, private authService: AuthService) {}
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
   toggleSearchVisibility() {
     if (this.isMobile) {
@@ -121,11 +135,18 @@ export class NavComponent implements OnInit, OnDestroy {
     this.router.navigate(['/user-profile']);
   }
 
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+<<<<<<< HEAD
   
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   // Emit search event
   onSearch() {
     this.searchEvent.emit(this.searchQuery);

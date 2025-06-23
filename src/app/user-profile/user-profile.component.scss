@@ -346,7 +346,10 @@ $background-primary: #CF996C;
 @media (max-width: 992px) {
   .user-profile-container {
     padding: 1rem;
+<<<<<<< HEAD
     padding-bottom: 100px; // Ensure space for bottom navbar
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     
     .profile-card {
       max-width: 100%;
@@ -354,31 +357,43 @@ $background-primary: #CF996C;
   }
 }
 
+<<<<<<< HEAD
 @media (max-width: 768px) {
   .user-profile-container {
     padding: 1rem 0.5rem;
     padding-top: 75px; // Add space for fixed navbar
     padding-bottom: 100px; // Add space for bottom navigation
 
+=======
+@media (max-width: 576px) {
+  .user-profile-container {
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     .profile-header {
       flex-direction: column;
       gap: 1rem;
       text-align: center;
+<<<<<<< HEAD
       margin-bottom: 1.5rem; // Reduced margin
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
       .profile-info {
         flex-direction: column;
       }
+<<<<<<< HEAD
       
       .logout-button {
         width: 100%; // Full width button on mobile
         margin-top: 0.5rem;
       }
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     }
 
     .form-actions {
       flex-direction: column;
     }
+<<<<<<< HEAD
 
     .profile-grid {
       grid-template-columns: 1fr; // Stack profile details and recipes
@@ -493,5 +508,7 @@ $background-primary: #CF996C;
     transform: translateY(-1px) scale(1.03);
     box-shadow: 0 4px 16px rgba(224, 159, 86, 0.18);
     outline: none;
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   }
 }

@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { UserProfileService } from '../user-service.service';
+<<<<<<< HEAD
 import Swal from 'sweetalert2';
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
 export interface Ingredient {
   ingredient_name: string;
@@ -87,15 +90,19 @@ export class UserProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+<<<<<<< HEAD
     // Add this for debugging
     console.log('Debugging auth token and user ID:');
     this.authService['getCurrentUserIdDebug'](); // Call the debug method
     
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     this.loadUserProfile();
     this.loadUserRecipes();
   }
 
   loadUserProfile() {
+<<<<<<< HEAD
     // Add debugging before making the request
     const userId = this.authService.getCurrentUserId();
     const token = this.authService.getToken();
@@ -104,16 +111,26 @@ export class UserProfileComponent implements OnInit {
     this.userProfileService.getUserProfile().subscribe(
       (response) => {
         console.log('User profile response:', response); // Debug line
+=======
+    this.userProfileService.getUserProfile().subscribe(
+      (response) => {
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         if (response.success) {
           this.userProfile = response.user;
           this.username = this.userProfile.username;
           this.email = this.userProfile.email;
+<<<<<<< HEAD
         } else {
           this.errorMessage = response.error || 'Failed to load profile data';
         }
       },
       (error) => {
         console.error('Profile error:', error); // Debug error
+=======
+        }
+      },
+      (error) => {
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         this.errorMessage = 'Failed to load user profile';
         this.clearMessagesAfterDelay();
       }
@@ -223,6 +240,7 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+<<<<<<< HEAD
   // Update the updateProfile method to handle profile image upload separately
 
   async updateProfile() {
@@ -299,6 +317,25 @@ export class UserProfileComponent implements OnInit {
       new_password: this.newPassword || undefined
     };
   
+=======
+  updateProfile() {
+    // Validate input
+    if (this.newPassword && this.newPassword !== this.confirmPassword) {
+      this.errorMessage = 'New passwords do not match';
+      this.clearMessagesAfterDelay();
+      return;
+    }
+
+    // Prepare update data
+    const updateData = {
+      username: this.username !== this.userProfile.username ? this.username : undefined,
+      email: this.email !== this.userProfile.email ? this.email : undefined,
+      current_password: this.currentPassword || undefined,
+      new_password: this.newPassword || undefined,
+      profile_image: this.profileImage || undefined
+    };
+
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     this.userProfileService.updateProfile(updateData).subscribe(
       (response) => {
         if (response.success) {
@@ -306,6 +343,7 @@ export class UserProfileComponent implements OnInit {
           this.isEditing = false;
           this.loadUserProfile(); // Reload profile to get updated data
           this.clearPasswords();
+<<<<<<< HEAD
           
           // Calculate and store the new hash if the profile image was updated
           if (this.profileImage) {
@@ -317,6 +355,8 @@ export class UserProfileComponent implements OnInit {
           
           // Emit an event to update profile image in nav component
           window.dispatchEvent(new CustomEvent('profileUpdated'));
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         } else {
           this.errorMessage = response.error || 'Failed to update profile';
         }
@@ -330,6 +370,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   deleteRecipe(recipeId: number) {
+<<<<<<< HEAD
     Swal.fire({
       title: 'Are you sure?',
       text: 'This recipe will be permanently deleted!',
@@ -370,6 +411,25 @@ export class UserProfileComponent implements OnInit {
         );
       }
     });
+=======
+    if (confirm('Are you sure you want to delete this recipe?')) {
+      this.userProfileService.deleteUserRecipe(recipeId).subscribe(
+        (response) => {
+          if (response.success) {
+            this.successMessage = 'Recipe deleted successfully';
+            this.loadUserRecipes(); // Reload recipes
+          } else {
+            this.errorMessage = response.error || 'Failed to delete recipe';
+          }
+          this.clearMessagesAfterDelay();
+        },
+        (error) => {
+          this.errorMessage = 'An error occurred while deleting the recipe';
+          this.clearMessagesAfterDelay();
+        }
+      );
+    }
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   }
 
   viewFullRecipe(recipeId: number) {
@@ -384,6 +444,7 @@ export class UserProfileComponent implements OnInit {
     this.router.navigate(['/edit-recipe', recipeId]);
   }
 
+<<<<<<< HEAD
   goToCreateRecipe() {
     this.router.navigate(['/create-recipe']);
   }
@@ -413,6 +474,11 @@ export class UserProfileComponent implements OnInit {
         });
       }
     });
+=======
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   }
 
   private clearPasswords() {
@@ -427,6 +493,7 @@ export class UserProfileComponent implements OnInit {
       this.errorMessage = '';
     }, 3000);
   }
+<<<<<<< HEAD
 
   async confirmCancelEdit() {
     const result = await Swal.fire({
@@ -498,4 +565,6 @@ export class UserProfileComponent implements OnInit {
       }
     });
   }
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 }

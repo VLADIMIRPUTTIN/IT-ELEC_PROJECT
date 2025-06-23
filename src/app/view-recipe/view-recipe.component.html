@@ -15,10 +15,14 @@
   <div *ngIf="recipe && !loading">
     <section class="recipe-hero">
       <div class="recipe-image">
+<<<<<<< HEAD
         <img *ngIf="recipe?.image" 
              [src]="recipe.image" 
              [alt]="recipe.name"
              (error)="handleImageError($event)">
+=======
+        <img *ngIf="recipe?.image" [src]="recipe.image" [alt]="recipe.name">
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         <div class="image-overlay"></div>
       </div>
       

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <app-nav (searchEvent)="onSearch($event)"></app-nav>
+=======
+  <app-nav (searchEvent)="onSearch($event)"></app-nav>
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   <div class="home-wrapper">
     <!-- Sidebar for Ingredient Selection -->
   
@@ -114,6 +118,7 @@
       </span>
     </h2>
 
+<<<<<<< HEAD
     <div class="search-and-filter">
       <!-- Search Container -->
       <div class="search-container">
@@ -161,12 +166,25 @@
     </div>
   </div>
 </div>
+=======
+    <div class="search-container">
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (input)="onSearch(searchQuery)"
+        placeholder="Search recipes..."
+        class="search-input"
+        [class.hidden]="!isSearchVisible && isMobile"
+      />
+    </div>
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     
     <!-- Validation Message When Ingredients Are Selected -->
     <div *ngIf="validationMessage" class="validation-message">
       <p>{{ validationMessage }}</p>
     </div>
   
+<<<<<<< HEAD
         
       
       <div 
@@ -175,10 +193,17 @@
         role="region" 
         [attr.aria-label]="'Available recipes'"
       >
+=======
+        </div>
+      </div>
+      
+      <div class="recipe-list" role="region" [attr.aria-label]="'Available recipes'">
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         <ng-container *ngIf="!isLoading; else loadingRecipes">
           <ng-container *ngIf="filteredRecipes.length > 0; else noRecipes">
             <ul class="recipes-grid">
               <li
+<<<<<<< HEAD
                 class="recipe-item"
                 *ngFor="let recipe of paginatedRecipes; trackBy: trackByRecipe"
                 (click)="selectRecipe(recipe)"
@@ -276,6 +301,73 @@
           Next &gt;
         </button>
       </nav>
+=======
+              class="recipe-item"
+              *ngFor="let recipe of paginatedRecipes; trackBy: trackByRecipe"
+              (click)="selectRecipe(recipe)"
+              (keydown.enter)="selectRecipe(recipe)"
+              tabindex="0"
+              role="button"
+              [attr.aria-label]="'View details for ' + recipe.name"
+            >
+              <div class="recipe-image">
+                <img [src]="'assets/img/' + recipe.image" alt="{{ recipe.name }}" class="small-image" />
+              </div>
+              
+              <div class="recipe-content">
+                <h4 class="recipe-title">{{ recipe.name }}</h4>
+                <p class="recipe-description">{{ recipe.description }}</p>
+                
+                <!-- <div class="recipe-actions">
+                  <button 
+                    class="like-button" 
+                    [ngClass]="{'active': recipe.isLiked}"
+                    (click)="toggleLike(recipe)"
+                    [attr.aria-label]="'Like ' + recipe.name"
+                  >
+                    <i class="fas fa-heart" [ngClass]="{'active': recipe.isLiked}"></i>
+                  </button>
+                  
+                  <button 
+                    class="share-button"
+                    (click)="shareRecipe(recipe)"
+                    [attr.aria-label]="'Share ' + recipe.name"
+                  >
+                    <i class="fas fa-share-alt"></i>
+                  </button>
+                </div> -->
+              </div>
+            </li>
+            </ul>
+
+<!-- Pagination Controls -->
+          <nav
+            class="pagination-controls"
+            *ngIf="totalPages > 1"
+            role="navigation"
+            [attr.aria-label]="'Recipe pages'"
+          >
+            <button
+              class="btn btn-secondary"
+              (click)="prevPage()"
+              [disabled]="currentPage === 1"
+              [attr.aria-label]="'Previous page'"
+            >
+              &lt; Previous
+            </button>
+            <span class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+            <button
+              class="btn btn-secondary"
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+              [attr.aria-label]="'Next page'"
+            >
+              Next &gt;
+            </button>
+          </nav>
+          </ng-container>
+        </ng-container>
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         
         <ng-template #loadingRecipes>
           <div class="loading-state">
@@ -287,7 +379,11 @@
         <ng-template #noRecipes>
           <p class="text-muted">No recipes match your search. Try selecting different ingredients or keywords.</p>
         </ng-template>
+<<<<<<< HEAD
       
+=======
+      </div>
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
       <!-- Recipe Modal -->
       <app-recipe-modal 
@@ -295,6 +391,7 @@
         [visible]="modalVisible" 
         (close)="closeModal()">
       </app-recipe-modal>
+<<<<<<< HEAD
 
       <!-- Rating Modal -->
       <app-rating-modal
@@ -315,3 +412,7 @@
   </span>
   <span class="message">{{ globalNotification.message }}</span>
 </div>
+=======
+    </main>
+  </div>
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016

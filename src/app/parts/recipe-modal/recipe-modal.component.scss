@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Color Variables
 $cream-white: #fff5e6;
 $light-cream: #fff9f3;
@@ -78,6 +79,8 @@ $error-color: #ff4d4f;
 }
 
 // Enhanced modal styling
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 .modal {
   display: none;
   position: fixed;
@@ -85,16 +88,23 @@ $error-color: #ff4d4f;
   left: 0;
   width: 100%;
   height: 100%;
+<<<<<<< HEAD
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 1000;
   font-family: 'Helvetica', sans-serif;
   backdrop-filter: blur(3px);
   transition: all 0.3s ease;
+=======
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  font-family: 'Helvetica', sans-serif;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
   &.visible {
     display: flex;
     justify-content: center;
     align-items: center;
+<<<<<<< HEAD
     animation: backdropReveal 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 
     .modal-content {
@@ -156,6 +166,22 @@ $error-color: #ff4d4f;
       background: rgba(211, 84, 0, 0.5);
     }
   }
+=======
+  }
+}
+
+.modal-content {
+  background: #fff5e6;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: none;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 }
 
 .close-button {
@@ -163,6 +189,7 @@ $error-color: #ff4d4f;
   top: 1rem;
   right: 1rem;
   border: none;
+<<<<<<< HEAD
   background: rgba(211, 84, 0, 0.1);
   font-size: 1.5rem;
   cursor: pointer;
@@ -180,11 +207,24 @@ $error-color: #ff4d4f;
     background: rgba(211, 84, 0, 0.2);
     color: $orange-hover;
     transform: rotate(90deg);
+=======
+  background: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #d35400;
+  transition: color 0.3s, transform 0.2s;
+
+  &:hover {
+    color: #f78c45;
+    transform: translateY(-2px);
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   }
 }
 
 .recipe-details {
   h2 {
+<<<<<<< HEAD
     margin-bottom: 0.5rem;
     color: $orange-secondary;
     font-size: 1.8rem;
@@ -281,6 +321,41 @@ $error-color: #ff4d4f;
       
       .ingredient-name {
         flex: 1;
+=======
+    margin-bottom: 1rem;
+    color: #e09f56;
+    font-size: 1.2rem;
+  }
+
+  .category {
+    color: #666666;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  h3 {
+    margin: 1.5rem 0 0.5rem;
+    color: #d35400;
+    font-size: 1.1rem;
+  }
+
+  ul, ol {
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+    list-style: none;
+
+    li {
+      margin: 0.5rem 0;
+      color: #666666;
+      font-size: 0.9rem;
+      
+      &::before {
+        content: "•";
+        color: #e09f56;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
       }
     }
   }
@@ -288,6 +363,7 @@ $error-color: #ff4d4f;
 
 .loading {
   text-align: center;
+<<<<<<< HEAD
   padding: 2.5rem;
   color: $orange-secondary;
   display: flex;
@@ -446,5 +522,24 @@ $error-color: #ff4d4f;
   .view-button {
     width: 100%;
     padding: 1rem 1.5rem;
+=======
+  padding: 2rem;
+  color: #d35400;
+}
+
+.error {
+  color: #ff4d4f;
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 77, 79, 0.1);
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    padding: 1.5rem;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   }
 }

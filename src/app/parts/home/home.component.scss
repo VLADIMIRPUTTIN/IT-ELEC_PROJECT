@@ -135,12 +135,16 @@ $transition: all 0.3s ease;
         font-weight: bold;
         margin-bottom: 3rem;
         color: $text-dark;
+<<<<<<< HEAD
         letter-spacing: 1px;
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
       }
 
       .steps-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+<<<<<<< HEAD
         gap: 2.5rem;
 
         .step-card {
@@ -166,28 +170,55 @@ $transition: all 0.3s ease;
             margin: 0 auto 1.2rem auto;
             background: linear-gradient(135deg, #CF996C 60%, #e09f56 100%);
             color: #fff;
+=======
+        gap: 2rem;
+
+        .step-card {
+          text-align: center;
+          padding: 2rem;
+
+          .step-number {
+            width: 3rem;
+            height: 3rem;
+            margin: 0 auto 1rem;
+            background-color: #CF996C;
+            color: $secondary-color;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+<<<<<<< HEAD
             font-size: 1.45rem;
             box-shadow: 0 2px 8px rgba(224, 159, 86, 0.18);
             transition: background 0.3s, box-shadow 0.3s;
+=======
+            font-size: 1.25rem;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
           }
 
           h3 {
             font-size: 1.25rem;
+<<<<<<< HEAD
             font-weight: 700;
             margin-bottom: 0.5rem;
             color: $primary-color;
             letter-spacing: 0.5px;
+=======
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: $text-dark;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
           }
 
           p {
             color: $text-light;
+<<<<<<< HEAD
             font-size: 1.08rem;
             margin-bottom: 0;
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
           }
         }
       }
@@ -352,6 +383,7 @@ $transition: all 0.3s ease;
       align-items: center;
     }
   }
+<<<<<<< HEAD
 }
 
 .step-icon {
@@ -365,4 +397,6 @@ $transition: all 0.3s ease;
 }
 .step-card:hover .step-icon i {
   color: #CF996C;
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 }

@@ -7,9 +7,14 @@
     top: 0;
     left: 0;
     width: 100%;
+<<<<<<< HEAD
     overflow-y: auto; // Changed from 'hidden' to 'auto' to enable scrolling
     background-color: #CF996C;
     padding-bottom: 80px; // Add padding to the entire container
+=======
+    overflow: hidden;
+    background-color: #CF996C;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
     @keyframes fadeIn {
         from { opacity: 0; }
@@ -85,11 +90,17 @@
   
 
     .recipe-form-container {
+<<<<<<< HEAD
         // Update bottom margin to account for navigation
         margin-bottom: 120px; // Increased from 100px
         flex: 1;
         padding: 40px;
         padding-bottom: 120px; // Increased padding at bottom
+=======
+        margin-bottom: 100px;
+        flex: 1;
+        padding: 40px;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         display: flex;
         flex-direction: column;
         background-color: #CF996C;
@@ -120,6 +131,7 @@
             margin-bottom: 20px;
             animation: scaleIn 0.4s ease-out;
 
+<<<<<<< HEAD
             input[type="file"]#imageUpload {
                 position: relative;
                 padding: 14px;
@@ -213,6 +225,8 @@
                 }
               }
 
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             label {
                 position: absolute;
                 top: 16px;
@@ -497,12 +511,19 @@
         // Responsive Design
         @media (max-width: 768px) {
             padding: 20px;
+<<<<<<< HEAD
             
             // Add significant bottom padding for mobile to ensure the save button isn't covered
             padding-bottom: 160px; // Increased from 100px
             
             // Increase bottom margin to leave space for the fixed navbar
             margin-bottom: 200px; // Increased from 150px
+=======
+
+            .recipe-form-container{ 
+                margin-bottom: 100px;
+            }
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             
             h2 {
                 padding-left: 0;
@@ -526,11 +547,14 @@
                     width: 100% !important;
                 }
             }
+<<<<<<< HEAD
 
             // Add specific styling for the submit button to ensure visibility
             .action-button.submit-button {
                 margin-bottom: 120px; // Increased from 80px
             }
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         }
     }
 }

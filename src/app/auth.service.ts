@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+<<<<<<< HEAD
 import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
+=======
+import { Observable, of, throwError } from 'rxjs';
+import { map, catchError} from 'rxjs/operators';
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+<<<<<<< HEAD
   // Fix the API URL to use the routes.php endpoint
   private apiUrl = 'https://api.foodhubrecipe.shop/'; // Base URL
   private currentUserSubject: BehaviorSubject<any>;
@@ -84,13 +90,39 @@ export class AuthService {
   adminLogin(email: string, password: string): Observable<any> {
     const body = { email, password };
     return this.http.post<any>(`${this.apiUrl}admin-login`, body).pipe(
+=======
+  private apiUrl = 'http://localhost/foodhub/backend_php/api/'; // Adjust with your API path
+
+  constructor(private http: HttpClient) { }
+
+  // Register user
+  register(email: string, username: string, password: string): Observable<any> {
+    const body = { email, username, password };
+    return this.http.post<any>(`${this.apiUrl}register`, body);
+  } 
+
+  saveAuthDetails(token: string, userId: number): void {
+    localStorage.setItem('auth_token', token);
+    localStorage.setItem('user_id', userId.toString());
+  }
+
+
+  // Login user
+  login(email: string, password: string): Observable<any> {
+    const body = { email, password };
+    return this.http.post<any>(`${this.apiUrl}login`, body).pipe(
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
       map((response) => {
         // Handle both string and object responses
         const parsedResponse = typeof response === 'string' 
           ? JSON.parse(response) 
           : response;
 
+<<<<<<< HEAD
         console.log('Parsed Admin Login Response:', parsedResponse);
+=======
+        console.log('Parsed Login Response:', parsedResponse);
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
         // Check for successful login
         if (parsedResponse.success) {
@@ -98,16 +130,24 @@ export class AuthService {
           const userId = parsedResponse.user_id;
 
           if (token && userId) {
+<<<<<<< HEAD
             this.saveAdminAuthDetails(token, userId);
             return parsedResponse;
           } else {
             throw new Error('Missing token or user ID in admin login response');
+=======
+            this.saveAuthDetails(token, userId);
+            return parsedResponse;
+          } else {
+            throw new Error('Missing token or user ID in login response');
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
           }
         }
 
         return parsedResponse;
       }),
       catchError((error) => {
+<<<<<<< HEAD
         console.error('Admin login error:', error);
         return throwError(error);
       })
@@ -158,6 +198,13 @@ export class AuthService {
   isAdmin(): boolean {
     return localStorage.getItem('is_admin') === 'true';
   }
+=======
+        console.error('Login error:', error);
+        return throwError(error);
+      })
+    );
+  } 
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
   private getUserIdFromLocalStorage(): number | null {
     return this.getCurrentUserId();
@@ -175,7 +222,12 @@ export class AuthService {
 
   // Check if the user is logged in
   isLoggedIn(): boolean {
+<<<<<<< HEAD
     return !!this.currentUserValue;
+=======
+    const token = localStorage.getItem('auth_token');
+    return !!token;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   }
  
 
@@ -229,6 +281,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('user_id');
+<<<<<<< HEAD
     localStorage.removeItem('is_admin');
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
@@ -330,6 +383,8 @@ export class AuthService {
     const timestamp = localStorage.getItem('profile_image_updated') || Date.now().toString();
     
     return btoa(profileImage + timestamp);
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   }
 
 }

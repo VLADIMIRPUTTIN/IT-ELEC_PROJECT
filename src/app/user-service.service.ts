@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+<<<<<<< HEAD
 import { Observable, throwError, of } from 'rxjs';
+=======
+import { Observable, throwError } from 'rxjs';
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 import { catchError, tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
@@ -8,7 +12,11 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class UserProfileService {
+<<<<<<< HEAD
   private apiUrl = 'https://api.foodhubrecipe.shop/';
+=======
+  private apiUrl = 'http://localhost/foodhub/backend_php/api/';
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
   constructor(
     private http: HttpClient, 
@@ -26,6 +34,7 @@ export class UserProfileService {
     return throwError(() => new Error(errorMessage));
   }
 
+<<<<<<< HEAD
   // Update getUserProfile to handle profile image
   getUserProfile(): Observable<any> {
     const userId = this.authService.getCurrentUserId();
@@ -65,10 +74,22 @@ export class UserProfileService {
       return of({ success: false, error: 'No user ID found' });
     }
     
+=======
+  getUserProfile(): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    return this.http.get<any>(`${this.apiUrl}user-profile`, { headers })
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  updateProfile(profileData: any): Observable<any> {
+    const token = this.authService.getToken();
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
+<<<<<<< HEAD
 
     // Add userId to the profileData object
     const updatedData = {
@@ -86,6 +107,15 @@ export class UserProfileService {
           console.error('Profile update error:', error);
           return of({ success: false, error: 'Failed to update profile' });
         })
+=======
+  
+    console.log('Sending Data:', profileData);
+  
+    return this.http.put<any>(`${this.apiUrl}update-profile`, profileData, { headers })
+      .pipe(
+        tap(response => console.log('Response:', response)),
+        catchError(this.handleError)
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
       );
   }
   
@@ -93,15 +123,22 @@ export class UserProfileService {
   getUserRecipes(): Observable<any> {
     const userId = this.authService.getCurrentUserId();
     const token = this.authService.getToken();
+<<<<<<< HEAD
     
     if (!userId || !token) {
       return of({ success: false, error: 'No user ID or authentication token available' });
     }
     
+=======
+    if (!userId || !token) {
+      throw new Error('No user ID or authentication token available');
+    }
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
+<<<<<<< HEAD
     
     // Use the dedicated endpoint with user_id as query parameter
     return this.http.get<any>(`${this.apiUrl}user-recipes.php?user_id=${userId}`, { headers })
@@ -112,6 +149,10 @@ export class UserProfileService {
           return of({ success: false, error: 'Failed to load recipes' });
         })
       );
+=======
+    return this.http.get(`${this.apiUrl}user-recipes?user_id=${userId}`, { headers })
+      .pipe(catchError(this.handleError.bind(this)));
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   }
 
   deleteUserRecipe(recipeId: number): Observable<any> {
@@ -154,6 +195,7 @@ export class UserProfileService {
       catchError(this.handleError.bind(this))
     );
 }
+<<<<<<< HEAD
 
 // Add this method to handle profile image upload
 // uploadProfileImage(userId: number, imageFile: File): Observable<any> {
@@ -294,5 +336,7 @@ shareUserRecipe(recipeId: number): Observable<any> {
       })
     );
 }
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   
 }

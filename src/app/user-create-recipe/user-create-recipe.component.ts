@@ -67,8 +67,11 @@ export class UserCreateRecipeComponent implements OnInit {
   showConfirmationModal = false;
   preparedRecipeData: any = null;
   currentUserId: number | null = null;
+<<<<<<< HEAD
   selectedImage: File | null = null;
   imagePreviewUrl: string | ArrayBuffer | null = null;
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
   authError: string | null = null;
   submissionError: string | null = null;
@@ -110,6 +113,7 @@ export class UserCreateRecipeComponent implements OnInit {
     this.router.navigate(['/login'], { 
       queryParams: { error: errorMessage } 
     });
+<<<<<<< HEAD
   } 
 
   onImageSelected(event: any): void {
@@ -149,6 +153,9 @@ export class UserCreateRecipeComponent implements OnInit {
       fileInput.value = '';
     }
   }
+=======
+  }  
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
   private initForm(): FormGroup {
     return this.fb.group({
@@ -179,6 +186,30 @@ export class UserCreateRecipeComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
+=======
+  // Method to handle file selection
+onImageSelected(event: any): void {
+  const file = event.target.files[0];
+  if (file) {
+    // Validate file type and size
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    const maxSize = 5 * 1024 * 1024; // 5MB
+
+    if (!allowedTypes.includes(file.type)) {
+      alert('Only JPEG, PNG, and GIF images are allowed.');
+      return;
+    }
+
+    if (file.size > maxSize) {
+      alert('Image must be less than 5MB.');
+      return;
+    }
+
+    this.recipeForm.patchValue({ recipeImage: file });
+  }
+}
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
   addIngredient(): void {
     this.ingredients.push(this.createIngredientFormGroup());
@@ -265,6 +296,7 @@ export class UserCreateRecipeComponent implements OnInit {
     }
   }
   
+<<<<<<< HEAD
  // user-create-recipe.component.ts modifications
 
 async onSubmit(): Promise<void> {
@@ -332,6 +364,58 @@ async onSubmit(): Promise<void> {
   this.showConfirmationModal = true;
 }
 
+=======
+  async onSubmit(): Promise<void> {
+    this.markFormGroupTouched(this.recipeForm);
+    this.submissionError = null;
+  
+    if (!this.authService.isLoggedIn() || !this.currentUserId) {
+      this.checkAuthentication();
+      return;
+    }
+  
+    if (!this.recipeForm.valid) {
+      this.submissionError = 'Please fill out all required fields correctly.';
+      return;
+    }
+  
+    const ingredientErrors = this.validateIngredients();
+    if (ingredientErrors.length > 0) {
+      console.error('Ingredient Validation Errors:', ingredientErrors);
+      return;
+    }
+  
+    const formValue = this.recipeForm.value;
+    
+    const processedIngredients = formValue.ingredients.map((ing: any, index: number) => {
+      const existingIngredient = this.findExistingIngredient(ing.ingredientName);
+      
+      return {
+        ingredient_name: ing.ingredientName,
+        amount: this.fractionToDecimal(ing.amount),
+        unit: this.getEffectiveUnit(index),
+        is_new_ingredient: !existingIngredient
+      };
+    });
+  
+    const recipeData = {
+      user_id: this.currentUserId,
+      name: formValue.name,
+      category: formValue.category,
+      description: formValue.description,
+      preparation_steps: formValue.steps.map((step: any, index: number) => ({
+        step_number: index + 1,
+        instruction: step.instruction,
+        preparation: step.preparation
+      })),
+      recipe_ingredients: processedIngredients
+    };
+  
+    this.preparedRecipeData = recipeData;
+    this.showConfirmationModal = true;
+  }
+
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   private markFormGroupTouched(formGroup: FormGroup): void {
     Object.values(formGroup.controls).forEach(control => {
       control.markAsTouched();
@@ -391,6 +475,7 @@ async onSubmit(): Promise<void> {
   async handleModalConfirmation(confirmed: boolean): Promise<void> {
     this.showConfirmationModal = false;
     
+<<<<<<< HEAD
     if (confirmed && this.preparedRecipeData) {
       try {
         const savedRecipe = await this.dataService.createUserRecipe(this.preparedRecipeData.formData).toPromise();
@@ -406,6 +491,24 @@ async onSubmit(): Promise<void> {
       } catch (error) {
         console.error('Error saving recipe:', error);
         this.submissionError = 'Failed to save recipe. Please try again.';
+=======
+    if (confirmed) {
+      try {
+        const savedRecipe = await this.dataService.createUserRecipe(this.preparedRecipeData).toPromise();
+        console.log('Full saved recipe response:', savedRecipe);
+        
+        const recipeResponse = typeof savedRecipe === 'string' ? JSON.parse(savedRecipe) : savedRecipe;
+        
+        const recipeId = recipeResponse.recipe_id || recipeResponse.id;
+        
+        if (recipeId) {
+          this.router.navigate(['/home']);
+        } else {
+          console.error('No recipe ID found in response:', recipeResponse);
+        }
+      } catch (error) {
+        console.error('Error saving recipe:', error);
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
       }
     }
   }

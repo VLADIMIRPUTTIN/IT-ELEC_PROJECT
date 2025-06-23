@@ -1,6 +1,10 @@
 <?php
 // Add the following at the top of your PHP files, before any output is sent:
+<<<<<<< HEAD
 header("Access-Control-Allow-Origin: http://localhost:4200"); // Allows all origins. You can restrict this to your frontend domain for added security.
+=======
+header("Access-Control-Allow-Origin: *"); // Allows all origins. You can restrict this to your frontend domain for added security.
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Allow HTTP methods
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Allow these headers
 
@@ -28,14 +32,20 @@ class Api extends GlobalMethods {
         // Remove 'Bearer ' prefix if present
         $token = str_replace('Bearer ', '', $authHeader);
     
+<<<<<<< HEAD
         // First check regular users
         $query = "SELECT id, 0 AS is_admin FROM users WHERE auth_token = ?";
+=======
+        // Check if token exists in database
+        $query = "SELECT id FROM users WHERE auth_token = ?";
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         $stmt = $this->mysqli->prepare($query);
         $stmt->bind_param("s", $token);
         $stmt->execute();
         $result = $stmt->get_result();
     
         if ($result->num_rows === 0) {
+<<<<<<< HEAD
             // If not found in users, check admin_users
             $query = "SELECT id, 1 AS is_admin FROM admin_users WHERE auth_token = ? AND token_expires > NOW()";
             $stmt = $this->mysqli->prepare($query);
@@ -64,6 +74,15 @@ class Api extends GlobalMethods {
         }
         
         return $user['id']; // Returns the admin ID
+=======
+            http_response_code(401);
+            echo json_encode(['error' => 'Invalid token']);
+            exit();
+        }
+    
+        $user = $result->fetch_assoc();
+        return $user['id'];
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     }
 
     public function __construct($mysqli) {
@@ -100,6 +119,7 @@ class Api extends GlobalMethods {
             return json_encode(['error' => 'Email or username already exists.']);
         }
 
+<<<<<<< HEAD
         // Set default profile image
         $defaultProfileImage = 'assets/pfp-default/profile-icon.jpg';
 
@@ -109,6 +129,14 @@ class Api extends GlobalMethods {
 
         // Bind the parameters again
         $stmt->bind_param("ssss", $email, $username, $hashedPassword, $defaultProfileImage);
+=======
+        // Insert new user into the database
+        $query = "INSERT INTO users (email, username, password) VALUES (?, ?, ?)";
+        $stmt = $this->mysqli->prepare($query);
+
+        // Bind the parameters again
+        $stmt->bind_param("sss", $email, $username, $hashedPassword);
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         $stmt->execute();
         
         // Check if the user was successfully created
@@ -155,10 +183,16 @@ class Api extends GlobalMethods {
         // Check if the token was successfully updated
         if ($stmt->affected_rows > 0) {
             return json_encode([
+<<<<<<< HEAD
                 'success' => true,
                 'token' => $token,
                 'user_id' => $user['id'],
                 'profile_image' => $user['profile_image'] ?? null
+=======
+                'success' => 'Login successful.', 
+                'token' => $token,
+                'user_id' => $user['id']  // Add user ID to the response
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             ]);
         } else {
             return json_encode(['error' => 'Failed to generate authentication token.']);
@@ -166,6 +200,7 @@ class Api extends GlobalMethods {
     }
     
     public function createRecipe() {
+<<<<<<< HEAD
         // Check authorization
         try {
             $user = $this->validateAuthToken();
@@ -272,10 +307,88 @@ class Api extends GlobalMethods {
         } catch (Exception $e) {
             error_log("Uncaught exception in createRecipe: " . $e->getMessage());
             return json_encode(['success' => false, 'message' => 'Server error: ' . $e->getMessage()]);
+=======
+        // Validate required fields
+        if (empty($_POST['name']) || empty($_POST['category']) || empty($_POST['description'])) {
+            return json_encode(['error' => 'Name, category, and description are required.']);
+        }
+
+        // Validate ingredients and steps
+        $recipeIngredients = json_decode($_POST['recipe_ingredients'], true);
+        $preparationSteps = json_decode($_POST['preparation_steps'], true);
+
+        if (empty($recipeIngredients) || empty($preparationSteps)) {
+            return json_encode(['error' => 'Ingredients and preparation steps are required.']);
+        }
+
+        try {
+            // Start transaction
+            $this->mysqli->begin_transaction();
+
+            // Handle image upload (optional)
+            $imagePath = null;
+            if (isset($_FILES['image'])) {
+                $imagePath = $this->uploadRecipeImage($_FILES['image']);
+            }
+
+            // Prepare and execute recipe insertion
+            $query = "INSERT INTO recipes (
+                user_id, 
+                name, 
+                category, 
+                description, 
+                ingredients_list, 
+                preparation_steps, 
+                image
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+            $stmt = $this->mysqli->prepare($query);
+
+            // Assuming user_id is available from session or authentication
+            $userId = $_SESSION['user_id'] ?? 1; // Replace with actual user ID retrieval
+
+            $ingredientsJson = json_encode($recipeIngredients);
+            $stepsJson = json_encode($preparationSteps);
+
+            $stmt->bind_param(
+                "issssss", 
+                $userId, 
+                $_POST['name'], 
+                $_POST['category'], 
+                $_POST['description'], 
+                $ingredientsJson, 
+                $stepsJson, 
+                $imagePath
+            );
+
+            $stmt->execute();
+            $recipeId = $stmt->insert_id;
+
+            // Add new ingredients if necessary
+            foreach ($recipeIngredients as $ingredient) {
+                if ($ingredient['is_new_ingredient']) {
+                    $this->addNewIngredient($ingredient['ingredient_name']);
+                }
+            }
+
+            // Commit transaction
+            $this->mysqli->commit();
+
+            return json_encode([
+                'success' => 'Recipe created successfully', 
+                'recipe_id' => $recipeId
+            ]);
+
+        } catch (Exception $e) {
+            // Rollback transaction on error
+            $this->mysqli->rollback();
+            return json_encode(['error' => 'Failed to create recipe: ' . $e->getMessage()]);
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         }
     }
 
     public function createUserRecipe($userId, $recipeData) {
+<<<<<<< HEAD
         // Validate user ID
         if (empty($userId) || !is_numeric($userId)) {
             return json_encode(['success' => false, 'error' => 'Invalid user ID.']);
@@ -351,11 +464,66 @@ class Api extends GlobalMethods {
                 'message' => 'Recipe created successfully', 
                 'recipe_id' => $recipeId,
                 'image_path' => $imagePath // Return the image path for confirmation
+=======
+        // Input validation
+        if (empty($userId) || !is_numeric($userId)) {
+            return json_encode(['error' => 'Invalid user ID.']);
+        }
+    
+        if (empty($recipeData['name']) || empty($recipeData['category']) || empty($recipeData['description'])) {
+            return json_encode(['error' => 'Name, category and description are required.']);
+        }
+        
+        if (empty($recipeData['recipe_ingredients']) || empty($recipeData['preparation_steps'])) {
+            return json_encode(['error' => 'Ingredients and preparation steps are required.']);
+        }
+        
+        try {
+            $this->mysqli->begin_transaction();
+    
+            // Use a table name that matches your database schema (e.g., user_recipes)
+            $query = "INSERT INTO user_recipes (user_id, name, category, description, ingredients_list, preparation_steps, created_at) 
+                      VALUES (?, ?, ?, ?, ?, ?, NOW())";
+            $stmt = $this->mysqli->prepare($query);
+            
+            // Encode ingredients and steps as JSON
+            $ingredientsJson = json_encode($recipeData['recipe_ingredients']);
+            $stepsJson = json_encode($recipeData['preparation_steps']);
+            
+            $stmt->bind_param("isssss", 
+                $userId,
+                $recipeData['name'],
+                $recipeData['category'],
+                $recipeData['description'],
+                $ingredientsJson,
+                $stepsJson
+            );
+            $stmt->execute();
+            $recipeId = $stmt->insert_id;
+    
+            // Add new ingredients if needed
+            foreach ($recipeData['recipe_ingredients'] as $ingredient) {
+                if ($ingredient['is_new_ingredient']) {
+                    $this->addNewIngredient($ingredient['ingredient_name']);
+                }
+            }
+    
+            $this->mysqli->commit();
+            
+            // Return a consistent response structure
+            return json_encode([
+                'success' => true, 
+                'message' => 'Recipe created successfully', 
+                'recipe_id' => $recipeId
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             ]);
     
         } catch (Exception $e) {
             $this->mysqli->rollback();
+<<<<<<< HEAD
             error_log('Recipe creation error: ' . $e->getMessage());
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             return json_encode([
                 'success' => false, 
                 'error' => 'Failed to create recipe: ' . $e->getMessage()
@@ -365,6 +533,7 @@ class Api extends GlobalMethods {
 
 
     private function uploadRecipeImage($imageFile) {
+<<<<<<< HEAD
         try {
             // Output debug information
             error_log("Uploading image: " . $imageFile['name']);
@@ -415,6 +584,39 @@ class Api extends GlobalMethods {
         } catch (Exception $e) {
             error_log("Image upload error: " . $e->getMessage());
             throw $e;
+=======
+        // Validate file type and size
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        $maxFileSize = 5 * 1024 * 1024; // 5MB
+    
+        // Validate file type
+        if (!in_array($imageFile['type'], $allowedTypes)) {
+            throw new Exception("Invalid image type. Allowed types: JPEG, PNG, GIF, WebP");
+        }
+    
+        // Validate file size
+        if ($imageFile['size'] > $maxFileSize) {
+            throw new Exception("Image too large. Max size is 5MB");
+        }
+    
+        // Create upload directory if it doesn't exist
+        $uploadDir = 'C:/xampp/htdocs/FoodHub/src/assets/img/';
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+    
+        // Generate a unique filename to prevent overwriting
+        $fileExtension = pathinfo($imageFile['name'], PATHINFO_EXTENSION);
+        $uniqueFilename = uniqid() . '.' . $fileExtension;
+        $uploadPath = $uploadDir . $uniqueFilename;
+    
+        // Move uploaded file
+        if (move_uploaded_file($imageFile['tmp_name'], $uploadPath)) {
+            // Return just the filename to be stored in the database
+            return $uniqueFilename;
+        } else {
+            throw new Exception("Failed to upload image");
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         }
     }
     
@@ -632,6 +834,7 @@ class Api extends GlobalMethods {
             return json_encode(['success' => false, 'error' => 'Failed to update recipe: ' . $e->getMessage()]);
         }
     }
+<<<<<<< HEAD
 
     // public function updateRecipe($recipeId, $recipeData, $isUserRecipe) {
     //     if (empty($recipeId) || !is_numeric($recipeId)) {
@@ -727,6 +930,8 @@ class Api extends GlobalMethods {
     //     }
     // }
     
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
       
     public function getRecipeView($recipeId, $userId = null, $isUserRecipe = false) {
         try {
@@ -767,25 +972,38 @@ class Api extends GlobalMethods {
                 
                 $result = $stmt->get_result();
                 
+<<<<<<< HEAD
                 if ($result->num_rows > 0) {
+=======
+                // If no recipe found in user_recipes, fall back to recipes table
+                if ($result->num_rows === 0) {
+                    error_log("No user recipe found, checking main recipes table");
+                } else {
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
                     $recipe = $result->fetch_assoc();
                     
                     // Parse JSON fields
                     $recipe['ingredients_list'] = json_decode($recipe['ingredients_list'], true);
                     $recipe['preparation_steps'] = json_decode($recipe['preparation_steps'], true);
                     
+<<<<<<< HEAD
                     // IMPORTANT: Add flag to identify this as a user recipe image
                     $recipe['is_user_recipe_image'] = true;
                     
                     // Log the image path for debugging
                     error_log("User recipe image path: " . ($recipe['image'] ?? 'NULL'));
                     
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
                     return json_encode([
                         'success' => true, 
                         'recipe' => $recipe
                     ]);
+<<<<<<< HEAD
                 } else {
                     error_log("No user recipe found with ID: $recipeId for user: $userId");
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
                 }
             }
     
@@ -827,9 +1045,12 @@ class Api extends GlobalMethods {
             $recipe['ingredients_list'] = json_decode($recipe['ingredients_list'], true);
             $recipe['preparation_steps'] = json_decode($recipe['preparation_steps'], true);
             
+<<<<<<< HEAD
             // Explicitly set this as NOT a user recipe image
             $recipe['is_user_recipe_image'] = false;
             
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             // Add image processing
             if (!empty($recipe['image'])) {
                 // Verify file exists
@@ -862,6 +1083,7 @@ class Api extends GlobalMethods {
     
     public function getRecipe($recipeId) {
         try {
+<<<<<<< HEAD
             // First try to find in regular recipes
             $query = "SELECT * FROM recipes WHERE id = ?";
             $stmt = $this->mysqli->prepare($query);
@@ -903,10 +1125,87 @@ class Api extends GlobalMethods {
             return json_encode([
                 'success' => false,
                 'error' => 'Failed to fetch recipe: ' . $e->getMessage()
+=======
+            error_log("Attempting to fetch recipe with ID: $recipeId");
+            
+            // Validate input
+            if (!is_numeric($recipeId) || $recipeId <= 0) {
+                error_log("Invalid recipe ID: $recipeId");
+                return json_encode([
+                    'success' => false,
+                    'error' => 'Invalid Recipe ID'
+                ]);
+            }
+    
+            $query = "SELECT * FROM recipes WHERE id = ?";
+            $stmt = $this->mysqli->prepare($query);
+            if (!$stmt) {
+                error_log("Prepare failed: " . $this->mysqli->error);
+                return json_encode([
+                    'success' => false,
+                    'error' => 'Database preparation error'
+                ]);
+            }
+            
+            $stmt->bind_param("i", $recipeId);
+            $executeResult = $stmt->execute();
+            
+            if (!$executeResult) {
+                error_log("Execute failed: " . $stmt->error);
+                return json_encode([
+                    'success' => false,
+                    'error' => 'Database execution error'
+                ]);
+            }
+            
+            $result = $stmt->get_result();
+            
+            if ($result->num_rows === 0) {
+                error_log("No recipe found with ID: $recipeId");
+                return json_encode([
+                    'success' => false,
+                    'error' => 'Recipe not found'
+                ]);
+            }
+            
+            $recipe = $result->fetch_assoc();
+            
+            // Parse JSON fields
+            $recipe['ingredients_list'] = json_decode($recipe['ingredients_list'], true);
+            $recipe['preparation_steps'] = json_decode($recipe['preparation_steps'], true);
+            
+            // Add image processing
+            if (!empty($recipe['image'])) {
+                // Verify file exists
+                $imagePath = $this->getImagePath($recipe['image']);
+                if (file_exists($imagePath)) {
+                    // Read image file and convert to base64
+                    $imageData = file_get_contents($imagePath);
+                    $base64Image = base64_encode($imageData);
+                    $recipe['image_data'] = $base64Image;
+                } else {
+                    error_log("Image file not found: " . $imagePath);
+                    $recipe['image_data'] = null;
+                }
+            } else {
+                $recipe['image_data'] = null;
+            }
+            
+            return json_encode([
+                'success' => true, 
+                'recipe' => $recipe
+            ]);
+        } catch (Exception $e) {
+            error_log("Exception in getRecipe: " . $e->getMessage());
+            return json_encode([
+                'success' => false,
+                'error' => 'Unexpected error: ' . $e->getMessage()
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             ]);
         }
     }
     
+<<<<<<< HEAD
     // Helper to decode JSON fields
     private function parseJsonFields(&$recipe) {
         if (isset($recipe['ingredients_list'])) {
@@ -927,6 +1226,74 @@ class Api extends GlobalMethods {
 public function getAllRecipes() {
     try {
         $query = "SELECT id, name, category, description, image, estimated_price, ingredients_list, preparation_steps, created_at, updated_at FROM recipes ORDER BY created_at DESC";
+=======
+    // Helper method to get the full image path
+    private function getImagePath($filename) {
+        // Assuming images are stored in an 'uploads' directory
+        // Adjust the path as needed for your specific file storage setup
+        return 'C:\\xampp\\htdocs\\FoodHub\\src\\assets\\img\\' . $filename;
+    }
+
+    // public function getRecipe($recipeId) {
+    //     try {
+    //         // First try to find in regular recipes
+    //         $query = "SELECT * FROM recipes WHERE id = ?";
+    //         $stmt = $this->mysqli->prepare($query);
+    //         $stmt->bind_param("i", $recipeId);
+    //         $stmt->execute();
+    //         $result = $stmt->get_result();
+            
+    //         if ($recipe = $result->fetch_assoc()) {
+    //             // Recipe found in regular recipes
+    //             $this->parseJsonFields($recipe);
+    //             return json_encode([
+    //                 'success' => true,
+    //                 'recipe' => $recipe
+    //             ]);
+    //         }
+            
+    //         // If not found, try user_recipes
+    //         $query = "SELECT * FROM user_recipes WHERE id = ?";
+    //         $stmt = $this->mysqli->prepare($query);
+    //         $stmt->bind_param("i", $recipeId);
+    //         $stmt->execute();
+    //         $result = $stmt->get_result();
+            
+    //         if ($recipe = $result->fetch_assoc()) {
+    //             // Recipe found in user recipes
+    //             $this->parseJsonFields($recipe);
+    //             return json_encode([
+    //                 'success' => true,
+    //                 'recipe' => $recipe
+    //             ]);
+    //         }
+            
+    //         // Recipe not found in either table
+    //         return json_encode([
+    //             'success' => false,
+    //             'error' => 'Recipe not found'
+    //         ]);
+    //     } catch (Exception $e) {
+    //         return json_encode([
+    //             'success' => false,
+    //             'error' => 'Failed to fetch recipe: ' . $e->getMessage()
+    //         ]);
+    //     }
+    // }
+    
+    // private function parseJsonFields(&$recipe) {
+    //     if (isset($recipe['ingredients_list'])) {
+    //         $recipe['ingredients_list'] = json_decode($recipe['ingredients_list'], true);
+    //     }
+    //     if (isset($recipe['preparation_steps'])) {
+    //         $recipe['preparation_steps'] = json_decode($recipe['preparation_steps'], true);
+    //     }
+    // }
+
+public function getAllRecipes() {
+    try {
+        $query = "SELECT * FROM recipes ORDER BY created_at DESC";
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         $stmt = $this->mysqli->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -996,7 +1363,10 @@ public function getRecipesByIngredients($ingredients) {
             return json_encode(['error' => 'Failed to delete recipe: ' . $e->getMessage()]);
         }
     }
+<<<<<<< HEAD
     
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
     public function searchRecipes($searchTerm, $category = null) {
         try {
@@ -1027,12 +1397,19 @@ public function getRecipesByIngredients($ingredients) {
         }
     }
 
+<<<<<<< HEAD
     // Make sure this method is correctly implemented
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     public function getUserProfile($userId) {
         try {
             // Validate user ID
             if (empty($userId) || !is_numeric($userId)) {
+<<<<<<< HEAD
                 return json_encode(['success' => false, 'error' => 'Invalid user ID']);
+=======
+                return json_encode(['error' => 'Invalid user ID']);
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             }
             // Fetch user details
             $query = "SELECT id, username, email FROM users WHERE id = ?";
@@ -1100,7 +1477,11 @@ public function getRecipesByIngredients($ingredients) {
             }
             
             // First, verify the recipe belongs to the user
+<<<<<<< HEAD
             $checkQuery = "SELECT id FROM user_recipes WHERE id = ? AND user_id = ?";
+=======
+            $checkQuery = "SELECT id FROM recipes WHERE id = ? AND user_id = ?";
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             $checkStmt = $this->mysqli->prepare($checkQuery);
             $checkStmt->bind_param("ii", $recipeId, $userId);
             $checkStmt->execute();
@@ -1114,7 +1495,11 @@ public function getRecipesByIngredients($ingredients) {
             }
             
             // Delete the recipe
+<<<<<<< HEAD
             $deleteQuery = "DELETE FROM user_recipes WHERE id = ? AND user_id = ?";
+=======
+            $deleteQuery = "DELETE FROM recipes WHERE id = ? AND user_id = ?";
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             $deleteStmt = $this->mysqli->prepare($deleteQuery);
             $deleteStmt->bind_param("ii", $recipeId, $userId);
             $deleteResult = $deleteStmt->execute();
@@ -1191,7 +1576,11 @@ public function getRecipesByIngredients($ingredients) {
             
             // Profile image update
             if (isset($_FILES['profile_image'])) {
+<<<<<<< HEAD
                 $uploadDir = '/public/uploads/profile_images/';
+=======
+                $uploadDir = 'uploads/profile_images/';
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
                 $filename = uniqid() . '_' . basename($_FILES['profile_image']['name']);
                 $uploadPath = $uploadDir . $filename;
                 
@@ -1255,6 +1644,7 @@ public function getRecipesByIngredients($ingredients) {
             ]);
         }
     }
+<<<<<<< HEAD
 
     public function addToFavorites($userId, $recipeId, $isUserRecipe = false) {
         try {
@@ -1655,5 +2045,8 @@ public function getRecipesByIngredients($ingredients) {
             return json_encode(["error" => "Server error: " . $e->getMessage()]);
         }
     }
+=======
+    
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 }
 ?>

@@ -13,6 +13,7 @@
       <i class="icon fas fa-book"></i>
       <span class="text">Recipe</span>
     </a>
+<<<<<<< HEAD
     <a routerLink="/shared-recipes" routerLinkActive="active">
       <i class="icon fas fa-share-alt"></i>
       <span class="text">Shared Recipes</span>
@@ -22,6 +23,12 @@
       <span class="text">About</span>
     </a> -->
     
+=======
+    <a routerLink="/about" routerLinkActive="active">
+      <i class="icon fas fa-info-circle"></i> 
+      <span class="text">About</span>
+    </a>
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   </div>
 
   <div class="profile-section">
@@ -35,7 +42,11 @@
     </div>
     <div class="profile-container" (clickOutside)="closeProfileMenu()">
       <div class="profile-image" (click)="navigateToProfile()">
+<<<<<<< HEAD
         <img [src]="getProfileImageUrl()" alt="User Profile">
+=======
+        <img [src]="profileImage || 'assets/pfp-default/profile-icon.jpg'" alt="User Profile">
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
       </div>
       <button class="dropdown-toggle" (click)="toggleProfileMenu()">
         <i class="fas fa-chevron-down" [class.rotated]="isProfileMenuOpen"></i>
@@ -60,15 +71,20 @@
       <i class="icon fas fa-book"></i>
       <span class="text">Recipe</span>
     </a>
+<<<<<<< HEAD
     <!-- Added custom class "shared-recipes-btn" to the Shared Recipes link -->
     <a routerLink="/shared-recipes" routerLinkActive="active" class="nav-item shared-recipes-btn">
       <i class="icon fas fa-share-alt"></i>
       <span class="text">Shared</span>
     </a>
+=======
+    
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     <!-- Create Recipe Button (Centered) -->
     <a routerLink="/ucreate-recipe" class="create-recipe-btn">
       <i class="icon fas fa-utensils"></i>
     </a>
+<<<<<<< HEAD
     <!-- <a routerLink="/about" routerLinkActive="active" class="nav-item">
       <i class="icon fas fa-info-circle"></i>
       <span class="text">About</span>
@@ -76,6 +92,16 @@
     <div class="nav-item" (click)="toggleProfileMenu()">
       <div class="profile-image" (click)="navigateToProfile()">
         <img [src]="getProfileImageUrl()" alt="Profile">
+=======
+    
+    <a routerLink="/about" routerLinkActive="active" class="nav-item">
+      <i class="icon fas fa-info-circle"></i>
+      <span class="text">About</span>
+    </a>
+    <div class="nav-item" (click)="toggleProfileMenu()">
+      <div class="profile-image" (click)="navigateToProfile()">
+        <img [src]="profileImage || 'assets/pfp-default/profile-icon.jpg'" alt="Profile">
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
       </div>
       <span class="text">Profile</span>
     </div>

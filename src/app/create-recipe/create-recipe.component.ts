@@ -88,7 +88,10 @@ export class CreateRecipeComponent implements OnInit {
   preparedRecipeData: any = null;
   selectedImage: File | null = null;
   imagePreviewUrl: string | ArrayBuffer | null = null;
+<<<<<<< HEAD
   submissionError: string | null = null;
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
   constructor(private fb: FormBuilder, private dataService: DataService, private router: Router) {}
 
@@ -381,11 +384,14 @@ export class CreateRecipeComponent implements OnInit {
     
     if (confirmed) {
       try {
+<<<<<<< HEAD
         // Add admin flag to FormData
         if (this.preparedRecipeData instanceof FormData) {
           this.preparedRecipeData.append('is_admin_recipe', 'true');
         }
         
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         const savedRecipe = await this.dataService.createRecipe(this.preparedRecipeData).toPromise();
         console.log('Full saved recipe response:', savedRecipe);
         
@@ -395,12 +401,16 @@ export class CreateRecipeComponent implements OnInit {
         const recipeId = recipeResponse.recipe_id || recipeResponse.id;
         
         if (recipeId) {
+<<<<<<< HEAD
           // Navigate back to admin with success parameter
           this.router.navigate(['/admin'], { 
             queryParams: { 
               recipeCreated: 'true' 
             } 
           });
+=======
+          this.router.navigate(['/home']);
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         } else {
           console.error('No recipe ID found in response:', recipeResponse);
         }

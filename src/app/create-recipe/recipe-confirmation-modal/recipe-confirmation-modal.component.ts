@@ -1,5 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+<<<<<<< HEAD
 import Swal from 'sweetalert2';
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
 @Component({
   selector: 'app-recipe-confirmation-modal',
@@ -12,6 +15,7 @@ export class RecipeConfirmationModalComponent {
   @Output() confirmEvent = new EventEmitter<boolean>();
 
   confirm() {
+<<<<<<< HEAD
     // Use SweetAlert2 for the confirmation
     Swal.fire({
       title: 'Save Recipe',
@@ -53,5 +57,12 @@ export class RecipeConfirmationModalComponent {
         this.confirmEvent.emit(false);
       }
     });
+=======
+    this.confirmEvent.emit(true);
+  }
+
+  cancel() {
+    this.confirmEvent.emit(false);
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   }
 }

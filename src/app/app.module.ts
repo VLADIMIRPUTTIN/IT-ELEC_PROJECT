@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule, HammerModule } from '@angular/platform-browser';
+=======
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './parts/home/home.component';
@@ -24,6 +29,7 @@ import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
 import { AdminComponent } from './admin-side/admin/admin.component';
 import { CommonModule } from '@angular/common';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
+<<<<<<< HEAD
 import { AdminLoginComponent } from './admin-side/admin-login/admin-login.component';
 import { AdminRegisterComponent } from './admin-side/admin-register/admin-register.component';
 import { RatingModalComponent } from './parts/rating-modal/rating-modal.component';
@@ -32,6 +38,10 @@ import { SharedRecipesComponent } from './shared-recipes/shared-recipes.componen
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { PwaInstallPromptComponent } from './pwa-install-prompt/pwa-install-prompt.component';
 import { AdminCreateRecipeComponent } from './admin-side/admin-create-recipe/admin-create-recipe.component';
+=======
+// import { RecipeViewComponent } from './recipe-view/recipe-view.component';
+// import { LoginComponent } from './login/login.component';
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
 @NgModule({
   declarations: [
@@ -50,6 +60,7 @@ import { AdminCreateRecipeComponent } from './admin-side/admin-create-recipe/adm
     UserProfileComponent,
     EditRecipeComponent,
     AdminComponent,
+<<<<<<< HEAD
     ViewRecipeComponent,
     AdminLoginComponent,
     AdminRegisterComponent,
@@ -57,12 +68,16 @@ import { AdminCreateRecipeComponent } from './admin-side/admin-create-recipe/adm
     SharedRecipesComponent,
     PwaInstallPromptComponent,
     AdminCreateRecipeComponent
+=======
+    ViewRecipeComponent
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+<<<<<<< HEAD
     FontAwesomeModule, 
     ReactiveFormsModule, 
     MatAutocompleteModule,
@@ -93,5 +108,19 @@ import { AdminCreateRecipeComponent } from './admin-side/admin-create-recipe/adm
     }
   ],
   bootstrap: [AppComponent]
+=======
+    FontAwesomeModule, // Import FontAwesomeModule
+    ReactiveFormsModule, 
+    // BrowserAnimationsModule,
+    MatAutocompleteModule,
+    // MatInputModule,
+    MatFormFieldModule,
+    CommonModule
+  ],
+  providers: [
+    provideAnimationsAsync()
+  ],
+  bootstrap: [AppComponent] // Bootstrapping the main component
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 })
 export class AppModule { }

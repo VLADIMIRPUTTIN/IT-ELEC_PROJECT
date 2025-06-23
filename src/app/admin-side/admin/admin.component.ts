@@ -1,13 +1,19 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+<<<<<<< HEAD
 import { ActivatedRoute } from '@angular/router';
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AuthService } from '../../auth.service';
 import { DataService } from '../../data.service';
+<<<<<<< HEAD
 import Swal from 'sweetalert2'; // Import SweetAlert
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser'; // Add this to your imports
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
 interface Recipe {
   id: number;
@@ -42,8 +48,11 @@ export class AdminComponent implements OnInit {
   // Search and filter properties
   searchQuery: string = '';
   availableRecipesCount: number = 0;
+<<<<<<< HEAD
   categoryFilter: string = '';
   uniqueCategories: string[] = [];
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   
   // State management
   isLoading: boolean = false;
@@ -62,12 +71,17 @@ export class AdminComponent implements OnInit {
     private router: Router,
     private dataService: DataService,
     private authService: AuthService,
+<<<<<<< HEAD
     private dialog: MatDialog,
     private activatedRoute: ActivatedRoute
+=======
+    private dialog: MatDialog
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   ) {}
 
   ngOnInit(): void {
     this.loadRecipes();
+<<<<<<< HEAD
     
     // Check for redirect from recipe creation
     this.activatedRoute.queryParams.subscribe(params => {
@@ -75,6 +89,8 @@ export class AdminComponent implements OnInit {
         this.showSuccessToast('Recipe created successfully and added to system recipes!');
       }
     });
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   }
 
   loadRecipes(): void {
@@ -85,6 +101,7 @@ export class AdminComponent implements OnInit {
       next: (response) => {
         if (response.success) {
           this.recipes = response.recipes;
+<<<<<<< HEAD
           this.allRecipes = [...this.recipes];
           this.filterRecipes();
           this.updateUniqueCategories();
@@ -92,12 +109,20 @@ export class AdminComponent implements OnInit {
         } else {
           this.error = 'Failed to fetch recipes';
           this.showErrorToast('Failed to fetch recipes');
+=======
+          this.filterRecipes();
+        } else {
+          this.error = 'Failed to fetch recipes';
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         }
       },
       error: (error) => {
         this.error = 'Error loading recipes. Please try again.';
         console.error('Error fetching recipes:', error);
+<<<<<<< HEAD
         this.showErrorToast('Error loading recipes. Please try again.');
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
       },
       complete: () => {
         this.isLoading = false;
@@ -105,6 +130,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   updateUniqueCategories(): void {
     const categories = new Set<string>();
     this.recipes.forEach(recipe => {
@@ -136,6 +162,19 @@ export class AdminComponent implements OnInit {
     }
 
     this.filteredRecipes = filtered;
+=======
+  filterRecipes() {
+    if (!this.searchQuery) {
+      this.filteredRecipes = [...this.allRecipes];
+    } else {
+      this.filteredRecipes = this.allRecipes.filter(recipe =>
+        recipe.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        recipe.description.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        recipe.category.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    }
+
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     this.updateAvailableRecipesCount();
     this.totalPages = Math.ceil(this.filteredRecipes.length / this.recipesPerPage);
     this.currentPage = 1;
@@ -168,7 +207,11 @@ export class AdminComponent implements OnInit {
   }
 
   navigateToCreateRecipe(): void {
+<<<<<<< HEAD
     this.router.navigate(['/admin-create-recipe']);
+=======
+    this.router.navigate(['/create-recipe']);
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   }
 
   editRecipe(id: number): void {
@@ -215,6 +258,7 @@ export class AdminComponent implements OnInit {
     this.openRecipeModal(id);
   }
 
+<<<<<<< HEAD
   // New method with SweetAlert confirmation
   confirmDeleteRecipe(id: number, recipeName: string = ''): void {
     const recipe = this.recipes.find(r => r.id === id);
@@ -353,6 +397,28 @@ export class AdminComponent implements OnInit {
       this.nextPage();
     } else if (event.direction === 4) {
       this.prevPage();
+=======
+  deleteRecipe(id: number): void {
+    if (confirm('Are you sure you want to delete this recipe?')) {
+      this.isLoading = true;
+      this.dataService.deleteRecipe(id).subscribe({
+        next: (response) => {
+          if (response.success) {
+            this.recipes = this.recipes.filter(recipe => recipe.id !== id);
+            this.filterRecipes();
+          } else {
+            this.error = 'Failed to delete the recipe';
+          }
+        },
+        error: (error) => {
+          this.error = 'Error deleting recipe. Please try again.';
+          console.error('Error deleting recipe:', error);
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     }
   }
 }

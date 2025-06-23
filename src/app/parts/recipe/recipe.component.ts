@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 import { Component, HostListener, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 // Make sure to import HammerManager if you haven't already
 import * as Hammer from 'hammerjs';
+=======
+import { Component, HostListener, OnInit } from '@angular/core';
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../../data.service';
 
@@ -33,6 +37,7 @@ export interface Recipe {
   image: string; // Add this line for the image URL
 }
 
+<<<<<<< HEAD
 export interface Favorite {
   recipe_id: number;
   // Add other properties as needed
@@ -63,6 +68,8 @@ interface NotificationState {
   type: string;
 }
 
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 export interface ApiResponse<T> {
   success?: boolean;
   error?: string;
@@ -94,6 +101,7 @@ interface DetailedIngredientsResponse {
   templateUrl: './recipe.component.html',
   styleUrls: ['./recipe.component.scss']
 })
+<<<<<<< HEAD
 export class RecipeComponent implements OnInit, AfterViewInit {
   globalNotification: { show: boolean; message: string; type: 'success' | 'error' } = {
     show: false,
@@ -104,6 +112,12 @@ export class RecipeComponent implements OnInit, AfterViewInit {
   ingredientPage: number = 1;
   ingredientsPerPage: number = 10;
   totalIngredientPages: number = 0;
+=======
+export class RecipeComponent implements OnInit {
+ingredientPage: number = 1;
+ingredientsPerPage: number = 10;
+totalIngredientPages: number = 0;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   filteredRecipesForDisplay: any[] = [];
   filteredAvailableIngredientsForDisplay: string[] = [];
   isIngredientsSelected: boolean = false;
@@ -140,7 +154,11 @@ throw new Error('Method not implemented.');
 
   // Pagination properties
   currentPage: number = 1;
+<<<<<<< HEAD
   recipesPerPage: number = 8; // Changed from 5 to 9
+=======
+  recipesPerPage: number = 9; // Changed from 5 to 9
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   totalPages: number = 0;
    // New search properties
    searchQuery = ''; // Holds the search query
@@ -148,6 +166,7 @@ throw new Error('Method not implemented.');
    isIngredientMenuOpen = false;
    isMobile: boolean = false;
   //  filteredAvailableIngredients: string[] = [];
+<<<<<<< HEAD
   favoriteRecipes: Favorite[] = [];
    
   recipeCategories: string[] = ['appetizer', 'breakfast', 'main Course', 'dessert', 'dinner',]; // Add your categories here
@@ -170,6 +189,12 @@ throw new Error('Method not implemented.');
   private favoriteNotificationTimer: any = null;
 
   @ViewChild('recipeList') recipeListElement?: ElementRef;
+=======
+   
+
+  private apiUrl = 'http://localhost/foodhub/backend_php/api/'; // Adjust this to match your API base URL
+
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
   constructor(private http: HttpClient, private dataService: DataService) {}
 
@@ -177,6 +202,7 @@ throw new Error('Method not implemented.');
     this.fetchIngredients();
     this.fetchAllRecipes();
     this.checkMobileView();
+<<<<<<< HEAD
     this.loadFavorites();
     window.addEventListener('resize', this.checkMobileView.bind(this));
   }
@@ -224,6 +250,34 @@ throw new Error('Method not implemented.');
         this.isLoading = false;
       }
     });
+=======
+    window.addEventListener('resize', this.checkMobileView.bind(this));
+  }
+
+  fetchIngredients() {
+    this.isLoading = true;
+    this.error = null;
+    
+    this.http.get<IngredientsResponse>(`${this.apiUrl}/ingredients`)
+      .subscribe({
+        next: (response) => {
+          if (response.success) {
+            this.ingredientsData = response.ingredients;
+            this.availableIngredients = response.ingredients.map(ing => ing.name);
+            this.filteredAvailableIngredients = [...this.availableIngredients];
+          } else {
+            this.error = 'Failed to fetch ingredients';
+          }
+        },
+        error: (error) => {
+          this.error = 'Error loading ingredients. Please try again.';
+          console.error('Error fetching ingredients:', error);
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   }
 
   filterIngredients(searchQuery: string) {
@@ -250,6 +304,7 @@ throw new Error('Method not implemented.');
     // Compute total pages based on filtered recipes
     this.totalPages = Math.ceil(this.filteredRecipes.length / this.recipesPerPage);
     
+<<<<<<< HEAD
     // Ensure current page is valid
     if (this.currentPage > this.totalPages && this.totalPages > 0) {
       this.currentPage = this.totalPages;
@@ -257,12 +312,17 @@ throw new Error('Method not implemented.');
       this.currentPage = 1;
     }
     
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     // Get current page's recipes
     const startIndex = (this.currentPage - 1) * this.recipesPerPage;
     const endIndex = startIndex + this.recipesPerPage;
     this.filteredRecipesForDisplay = this.filteredRecipes.slice(startIndex, endIndex);
+<<<<<<< HEAD
     
     console.log(`Updated pagination: ${this.filteredRecipes.length} recipes, page ${this.currentPage}/${this.totalPages}`);
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   }
 
   nextIngredientPage() {
@@ -331,6 +391,7 @@ throw new Error('Method not implemented.');
 
   filterRecipes() {
     if (this.selectedIngredients.length === 0) {
+<<<<<<< HEAD
       // When no ingredients selected, reset to all recipes
       this.filteredRecipes = [...this.allRecipes];
       this.updateAvailableRecipesCount();
@@ -365,6 +426,38 @@ throw new Error('Method not implemented.');
       }
     });
   }
+=======
+      this.filteredRecipes = [...this.allRecipes];
+    } else {
+      // Fetch recipes from the service
+      this.dataService.getRecipesByIngredients(this.selectedIngredients).subscribe({
+        next: (response) => {
+          if (response.success && response.recipes) {
+            // Apply partial matching logic
+            this.filteredRecipes = response.recipes.filter((recipe: { ingredients_list: { ingredient_name: string; }[]; }) =>
+              recipe.ingredients_list.some((recipeIngredient: { ingredient_name: string; }) =>
+                this.selectedIngredients.some(selectedIngredient =>
+                  recipeIngredient.ingredient_name.toLowerCase().includes(selectedIngredient.toLowerCase())
+                )
+              )
+            );
+          } else {
+            this.filteredRecipes = []; // Reset recipes if none match
+            this.error = 'No matching recipes found';
+          }
+          this.updateAvailableRecipesCount();
+          this.totalPages = Math.ceil(this.filteredRecipes.length / this.recipesPerPage);
+          this.currentPage = 1;
+        },
+        error: (error) => {
+          this.error = 'Error filtering recipes. Please try again.';
+          console.error('Error filtering recipes:', error);
+        }
+      });
+    }
+  }
+  
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
   fetchAllRecipes() {
     this.isLoading = true;
@@ -374,7 +467,10 @@ throw new Error('Method not implemented.');
           this.allRecipes = response.recipes;
           this.filterRecipes();
           this.totalPages = Math.ceil(this.allRecipes.length / this.recipesPerPage);
+<<<<<<< HEAD
           this.fetchAllRatings(); // <-- Fetch ratings after loading recipes
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         } else {
           this.error = 'Failed to fetch recipes';
         }
@@ -389,6 +485,7 @@ throw new Error('Method not implemented.');
     });
   }
 
+<<<<<<< HEAD
   fetchAllRatings() {
     this.allRecipes.forEach(recipe => {
       this.dataService.getRecipeRating(recipe.id).subscribe(res => {
@@ -399,6 +496,8 @@ throw new Error('Method not implemented.');
     });
   }
 
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   updateAvailableRecipesCount() {
     this.availableRecipesCount = this.filteredRecipes.length;
   }
@@ -439,6 +538,7 @@ throw new Error('Method not implemented.');
     }
   }
   
+<<<<<<< HEAD
   isRecipeFavorite(recipeId: number): boolean {
     return this.favoriteRecipes.some(fav => fav.recipe_id === recipeId);
   }
@@ -543,6 +643,9 @@ throw new Error('Method not implemented.');
         }
       });
   }
+=======
+
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
   selectRecipe(recipe: Recipe) {
     this.selectedRecipeId = recipe.id;
@@ -583,6 +686,7 @@ trackByRecipe(index: number, item: any): number {
 // }
 
 shareRecipe(recipe: Recipe) {
+<<<<<<< HEAD
   this.dataService.shareRecipe(recipe.id, recipe.name.includes('User Recipe'))
     .subscribe({
       next: (response) => {
@@ -595,6 +699,20 @@ shareRecipe(recipe: Recipe) {
       },
       error: (error) => console.error('Error sharing recipe:', error)
     });
+=======
+  // Implement sharing logic (could use web share API or custom modal)
+  // Example:
+  if (navigator.share) {
+    navigator.share({
+      title: recipe.name,
+      text: recipe.description,
+      url: window.location.href
+    });
+  } else {
+    // Fallback for browsers that don't support web share
+    // Maybe open a share modal
+  }
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 }
 
 checkMobileView() {
@@ -625,6 +743,7 @@ getResponsiveIngredientList(): string[] {
   return this.filteredAvailableIngredients;
 }
 
+<<<<<<< HEAD
   // Clean up event listener
 ngOnDestroy() {
   window.removeEventListener('resize', this.checkMobileView);
@@ -719,4 +838,11 @@ applyPriceFilter() {
     
     
 }
+=======
+// Clean up event listener
+ngOnDestroy() {
+  window.removeEventListener('resize', this.checkMobileView);
+}
+
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 }

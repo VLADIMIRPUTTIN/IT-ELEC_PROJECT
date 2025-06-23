@@ -8,10 +8,17 @@ date_default_timezone_set("Asia/Manila");
 set_time_limit(1000);
 
 //define constants for server credentials/configuration
+<<<<<<< HEAD
 define("SERVER", "srv544.hstgr.io");
 define("DATABASE", "u867901111_recipe_db");
 define("USER", "u867901111_foodhub");
 define("PASSWORD", "Foodhub2025!");
+=======
+define("SERVER", "localhost");
+define("DATABASE", "recipe_db(1)");
+define("USER", "root");
+define("PASSWORD", "");
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 define("DRIVER", "mysql");
 
 class Connection{

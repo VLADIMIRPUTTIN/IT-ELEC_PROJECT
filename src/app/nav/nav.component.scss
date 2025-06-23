@@ -308,10 +308,16 @@
 
         .create-recipe-btn {
             background-color: #f2c382;
+<<<<<<< HEAD
             border-radius: 8px; // Changed from 50% to 8px for box shape
             width: auto; // Changed from fixed width
             height: auto; // Changed from fixed height
             padding: 10px 15px; // Added padding for better appearance
+=======
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             display: flex;
             justify-content: center;
             align-items: center;
@@ -323,6 +329,7 @@
 
             .icon {
                 color: #fef5e6;
+<<<<<<< HEAD
                 font-size: 20px;
             }
 
@@ -332,6 +339,9 @@
                 color: #fef5e6;
                 font-size: 14px;
                 margin-left: 5px;
+=======
+                font-size: 24px;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             }
         }
 
@@ -355,7 +365,11 @@
 
         .nav-item {
             .icon {
+<<<<<<< HEAD
                 font-size: 18px;    
+=======
+                font-size: 18px;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             }
 
             .text {
@@ -364,15 +378,21 @@
         }
 
         .create-recipe-btn {
+<<<<<<< HEAD
             width: 40px; // Reduced from 45px
             height: 40px; // Reduced from 45px
             bottom: 30px; // Keeping the raised position
             padding: 8px; // Reduced padding to make the box smaller
             border-radius: 8px;
+=======
+            width: 45px;
+            height: 45px;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
             .icon {
                 font-size: 20px;
             }
+<<<<<<< HEAD
             
             // Hide the "Create" text in mobile view
             &::after {
@@ -519,3 +539,8 @@
 }
 
 
+=======
+        }
+    }
+}
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016

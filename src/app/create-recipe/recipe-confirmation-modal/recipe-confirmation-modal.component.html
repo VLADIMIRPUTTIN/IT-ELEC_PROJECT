@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="modal-overlay" *ngIf="isVisible">
   <div class="modal-content">
     <div class="modal-header">
@@ -66,3 +67,42 @@
     </div>
   </div>
 </div>
+=======
+<div class="modal" *ngIf="isVisible">
+    <div class="modal-content">
+      <h2>Confirm Recipe Details</h2>
+      
+      <div class="recipe-preview">
+        <h3>{{ recipeData.name }}</h3>
+        <p><strong>Category:</strong> {{ recipeData.category }}</p>
+        <p><strong>Description:</strong> {{ recipeData.description }}</p>
+        
+        <h4>Ingredients:</h4>
+        <table>
+          <tr>
+            <th>Ingredient</th>
+            <th>Amount</th>
+            <th>Unit</th>
+          </tr>
+          <tr *ngFor="let ingredient of recipeData.recipe_ingredients">
+            <td>{{ ingredient.ingredient_name }}</td>
+            <td>{{ ingredient.amount }}</td>
+            <td>{{ ingredient.unit }}</td>
+          </tr>
+        </table>
+        
+        <h4>Steps:</h4>
+        <ol>
+          <li *ngFor="let step of recipeData.preparation_steps">
+            {{ step.instruction }}
+          </li>
+        </ol>
+      </div>
+      
+      <div class="modal-actions">
+        <button (click)="cancel()">Cancel</button>
+        <button (click)="confirm()">Confirm</button>
+      </div>
+    </div>
+  </div>
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016

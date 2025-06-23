@@ -4,7 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfileService } from '../user-service.service';
 import { AuthService } from '../auth.service';
 import { DataService } from '../data.service';
+<<<<<<< HEAD
 import Swal from 'sweetalert2';
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
 function fractionValidator(): ValidatorFn {
   return (control: AbstractControl): {[key: string]: any} | null => {
@@ -66,7 +69,10 @@ export class EditRecipeComponent implements OnInit {
   showCustomUnitInput: { [key: number]: boolean } = {};
   showConfirmationModal = false;
   preparedRecipeData: any = null;
+<<<<<<< HEAD
   selectedImageFile: File | null = null;
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
   constructor(
     private fb: FormBuilder,
@@ -101,6 +107,7 @@ export class EditRecipeComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   onImageSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
@@ -122,6 +129,8 @@ export class EditRecipeComponent implements OnInit {
     }
   }
 
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   get ingredients(): FormArray {
     return this.recipeForm.get('ingredients') as FormArray;
   }
@@ -351,6 +360,7 @@ export class EditRecipeComponent implements OnInit {
 
   async handleModalConfirmation(confirmed: boolean): Promise<void> {
     this.showConfirmationModal = false;
+<<<<<<< HEAD
 
     if (confirmed) {
       const result = await Swal.fire({
@@ -397,6 +407,29 @@ export class EditRecipeComponent implements OnInit {
             text: 'Error preparing recipe update.'
           });
         }
+=======
+    
+    if (confirmed) {
+      try {
+        // Add user ID if it's a user recipe
+        if (this.isUserRecipe) {
+          this.preparedRecipeData.user_id = this.authService.getCurrentUserId();
+        }
+
+        // Update recipe
+        this.userProfileService.updateRecipe(this.recipeId, this.preparedRecipeData, this.isUserRecipe).subscribe({
+          next: (response) => {
+            alert('Recipe updated successfully!');
+            this.router.navigate(['/user-profile']);
+          },
+          error: (err) => {
+            console.error('Error updating recipe:', err);
+            // Optional: Add user-friendly error handling
+          },
+        });
+      } catch (error) {
+        console.error('Error preparing recipe update:', error);
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
       }
     }
   }

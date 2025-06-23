@@ -1,3 +1,315 @@
+<<<<<<< HEAD
+=======
+// // Variables
+// $cream-white: #f8f4f1;
+// $light-cream: #faf6f3;
+// $orange-primary: #e08f46;
+// $orange-secondary: #c14d20;
+// $text-dark: #4a4a4a;
+// $background-soft: #f3e6d8;
+
+// // Spacing
+// $spacing-sm: 12px;
+// $spacing-md: 16px;
+// $spacing-lg: 24px;
+// $spacing-xl: 32px;
+
+// // Transitions
+// $transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// // Mixins
+// @mixin flex-center {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// @mixin soft-shadow {
+//   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+// }
+
+// .recipe-view-container {
+//   min-height: 100vh;
+//   background-color: $background-soft;
+//   font-family: 'Inter', sans-serif;
+//   color: $text-dark;
+
+//   .back-button {
+//     position: fixed;
+//     top: $spacing-lg;
+//     left: $spacing-lg;
+//     z-index: 10;
+//     background-color: rgba($cream-white, 0.9);
+//     border: none;
+//     color: $orange-secondary;
+//     padding: $spacing-sm $spacing-md;
+//     border-radius: 6px;
+//     cursor: pointer;
+//     transition: $transition-smooth;
+//     @include soft-shadow;
+
+//     &:hover {
+//       transform: translateX(-3px);
+//       background-color: $cream-white;
+//     }
+//   }
+
+//   // Hero Section
+//   .recipe-hero {
+//     height: 100vh;
+//     display: flex;
+//     position: relative;
+
+//     .recipe-image {
+//       width: 50%;
+//       position: relative;
+//       overflow: hidden;
+
+//       img {
+//         width: 100%;
+//         height: 100%;
+//         object-fit: cover;
+//       }
+
+//       .image-overlay {
+//         position: absolute;
+//         inset: 0;
+//         background: linear-gradient(
+//           45deg,
+//           rgba(0, 0, 0, 0.6),
+//           rgba(0, 0, 0, 0.3)
+//         );
+//       }
+
+//       &::after {
+//         content: '';
+//         position: absolute;
+//         bottom: 0;
+//         left: 0;
+//         width: 100%;
+//         height: 120px;
+//         background: linear-gradient(
+//           to top,
+//           $background-soft,
+//           transparent
+//         );
+//       }
+//     }
+
+//     .recipe-details {
+//       width: 50%;
+//       padding: $spacing-xl;
+//       display: flex;
+//       flex-direction: column;
+//       justify-content: center;
+//       animation: fade-in $transition-smooth;
+
+//       .recipe-header {
+//         margin-bottom: $spacing-xl;
+
+//         h1 {
+//           font-size: 2.5rem;
+//           color: $orange-secondary;
+//           margin-bottom: $spacing-sm;
+//         }
+
+//         .recipe-meta {
+//           display: flex;
+//           gap: $spacing-md;
+//           color: lighten($text-dark, 20%);
+//           margin-bottom: $spacing-md;
+
+//           .category {
+//             color: $orange-primary;
+//             font-weight: 500;
+//           }
+//         }
+
+//         .recipe-description {
+//           line-height: 1.6;
+//           color: $text-dark;
+//         }
+//       }
+
+//       .recipe-ingredients {
+//         h2 {
+//           color: $orange-secondary;
+//           margin-bottom: $spacing-md;
+//           padding-bottom: $spacing-sm;
+//           border-bottom: 2px solid $orange-primary;
+//         }
+
+//         ul {
+//           display: grid;
+//           grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+//           gap: $spacing-sm;
+
+//           li {
+//             background-color: $cream-white;
+//             padding: $spacing-sm;
+//             border-radius: 6px;
+//             display: flex;
+//             align-items: center;
+//             gap: $spacing-sm;
+//             transition: background-color $transition-smooth;
+
+//             &:hover {
+//               background-color: darken($cream-white, 3%);
+//             }
+
+//             .amount {
+//               font-weight: bold;
+//               color: $orange-secondary;
+//               min-width: 50px;
+//             }
+
+//             .unit {
+//               color: lighten($text-dark, 20%);
+//               font-size: 0.9em;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+
+//   // Recipe Content (Preparation Steps)
+//   .recipe-content {
+//     background-color: $background-soft;
+//     padding: $spacing-xl max(5vw, $spacing-xl);
+    
+//     .recipe-preparation {
+//       max-width: 800px;
+//       margin: 0 auto;
+
+//       h2 {
+//         color: $orange-secondary;
+//         font-size: 2rem;
+//         margin-bottom: $spacing-xl;
+//         text-align: center;
+//       }
+
+//       .steps {
+//         display: flex;
+//         flex-direction: column;
+//         gap: $spacing-lg;
+
+//         .step {
+//           display: flex;
+//           gap: $spacing-md;
+//           background-color: $cream-white;
+//           padding: $spacing-lg;
+//           border-radius: 10px;
+//           @include soft-shadow;
+//           transition: transform $transition-smooth;
+
+//           &:hover {
+//             transform: translateY(-2px);
+//           }
+
+//           .step-number {
+//             @include flex-center;
+//             background-color: $orange-primary;
+//             color: white;
+//             width: 36px;
+//             height: 36px;
+//             border-radius: 50%;
+//             font-weight: bold;
+//             flex-shrink: 0;
+//           }
+
+//           .step-content {
+//             h3 {
+//               color: $orange-secondary;
+//               margin-bottom: $spacing-sm;
+//             }
+
+//             p {
+//               line-height: 1.6;
+//               color: $text-dark;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// // Animations
+// @keyframes fade-in {
+//   from {
+//     opacity: 0;
+//     transform: translateY(20px);
+//   }
+//   to {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+// }
+
+// // Loading and Error States
+// .loading,
+// .error-message {
+//   @include flex-center;
+//   min-height: 100vh;
+//   flex-direction: column;
+//   gap: $spacing-md;
+  
+//   .spinner {
+//     width: 40px;
+//     height: 40px;
+//     border: 4px solid $cream-white;
+//     border-top-color: $orange-primary;
+//     border-radius: 50%;
+//     animation: spin 1s linear infinite;
+//   }
+// }
+
+// @keyframes spin {
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
+
+// // Responsive Design
+// @media (max-width: 768px) {
+//   .recipe-view-container {
+//     .recipe-hero {
+//       flex-direction: column;
+//       height: auto;
+
+//       .recipe-image,
+//       .recipe-details {
+//         width: 100%;
+//       }
+
+//       .recipe-image {
+//         height: 50vh;
+//       }
+
+//       .recipe-details {
+//         padding: $spacing-lg;
+//       }
+//     }
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 @use 'sass:math';
 
 // Color Palette
@@ -67,6 +379,7 @@ $transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
+<<<<<<< HEAD
 // Enhance animations for view recipe page
 @keyframes heroFadeIn {
   from { 
@@ -101,13 +414,18 @@ $transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 .recipe-view-container {
   font-family: 'Inter', 'Segoe UI', sans-serif;
   color: $text-dark;
   background-color: $background-soft;
   min-height: 100vh;
 
+<<<<<<< HEAD
   // Back button animation
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   .back-button {
     position: fixed;
     top: $spacing-lg;
@@ -124,6 +442,7 @@ $transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     transition: all $transition-smooth;
     border: none;
     @include soft-shadow;
+<<<<<<< HEAD
     animation: fadeIn 0.4s ease-out;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
@@ -134,6 +453,13 @@ $transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     
     &:active {
       transform: translateX(-2px) scale(0.95);
+=======
+
+    &:hover {
+      transform: translateX(-3px);
+      background-color: $orange-pri;
+    //   background-color: $orange-hover;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     }
   }
 
@@ -154,17 +480,23 @@ $transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       width: 100%;
       height: 100vh;
       z-index: 1;
+<<<<<<< HEAD
       animation: heroFadeIn 1s ease-out;
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
       
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+<<<<<<< HEAD
         transition: transform 15s ease;
         
         &:hover {
           transform: scale(1.1);
         }
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
       }
 
       .image-overlay {
@@ -199,7 +531,11 @@ $transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
       padding: $spacing-xl;
       margin-top: 15vh;
+<<<<<<< HEAD
       animation: fadeIn 1.2s ease-out 0.3s both;
+=======
+      animation: fadeIn 0.8s ease-out;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
       .recipe-header {
         flex: 1;
@@ -211,7 +547,10 @@ $transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
           margin-bottom: $spacing-md;
           line-height: 1.2;
           text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+<<<<<<< HEAD
           animation: heroFadeIn 0.8s ease-out 0.3s both;
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         }
 
         .recipe-meta {
@@ -220,7 +559,10 @@ $transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
           color: $light-cream;
           margin-bottom: $spacing-lg;
           font-size: 1.1rem;
+<<<<<<< HEAD
           animation: heroFadeIn 0.8s ease-out 0.5s both;
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
           span {
             padding: $spacing-xs $spacing-sm;
@@ -235,7 +577,10 @@ $transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
           line-height: 1.6;
           max-width: 600px;
           text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+<<<<<<< HEAD
           animation: heroFadeIn 0.8s ease-out 0.7s both;
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         }
       }
 
@@ -245,7 +590,11 @@ $transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         padding: $spacing-lg;
         border-radius: $border-radius-md;
         color: $cream-white;
+<<<<<<< HEAD
         animation: fadeInScale 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s both;
+=======
+        animation: fadeInScale 0.6s ease-out;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         position: relative;
 
         h2 {
@@ -276,6 +625,7 @@ $transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             align-items: center;
             gap: $spacing-sm;
             transition: all $transition-smooth;
+<<<<<<< HEAD
             animation: ingredientReveal 0.6s ease-out forwards;
             opacity: 0;
           
@@ -284,6 +634,8 @@ $transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
                 animation-delay: 0.9s + ($i * 0.06s);
               }
             }
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
             &:hover {
               background: rgba(255, 255, 255, 0.1);
@@ -341,7 +693,10 @@ $transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         margin-bottom: $spacing-xxl;
         text-align: center;
         font-weight: 600;
+<<<<<<< HEAD
         animation: fadeIn 0.8s ease-out;
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
       }
 
       .steps {
@@ -359,12 +714,19 @@ $transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
           transition: all $transition-smooth;
           animation: fadeIn 0.6s ease-out;
           animation-fill-mode: both;
+<<<<<<< HEAD
           animation: stepReveal 0.7s ease-out both;
           opacity: 0;
         
           @for $i from 1 through 20 {
             &:nth-child(#{$i}) {
               animation-delay: 0.1s + ($i * 0.15s);
+=======
+
+          @for $i from 1 through 20 {
+            &:nth-child(#{$i}) {
+              animation-delay: #{$i * 0.1}s;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             }
           }
 

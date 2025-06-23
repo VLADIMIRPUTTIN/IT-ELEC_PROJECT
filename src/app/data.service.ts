@@ -10,19 +10,37 @@ import { AuthService } from './auth.service';
 })
 export class DataService {
 
+<<<<<<< HEAD
   // private apiUrl = 'http://localhost/Foodhub/backend_php/api/';
   private apiUrl = 'https://api.foodhubrecipe.shop/';
+=======
+  private apiUrl = 'http://localhost/foodhub/backend_php/api/'; 
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   // Error handler function
   private handleError(error: HttpErrorResponse): Observable<never> {
+<<<<<<< HEAD
     console.error('Error details:', error); // Log the full error
     if (error.error instanceof ErrorEvent) {
       console.error('Client-side error:', error.error.message);
     } else {
       console.error(`Backend returned code ${error.status}, body was:`, error.error);
     }
+=======
+    if (error.error instanceof ErrorEvent) {
+      // Client-side or network error
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // Backend error
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`
+      );
+    }
+    // Return an observable with a user-facing error message
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     return throwError(() => new Error('Something went wrong. Please try again later.'));
   }
 
@@ -83,6 +101,7 @@ export class DataService {
 
   // Create a recipe
   createRecipe(recipeData: FormData): Observable<any> {
+<<<<<<< HEAD
     // Get authentication info
     const token = this.authService.getToken();
     
@@ -123,6 +142,12 @@ export class DataService {
         return throwError(() => new Error(errorMessage));
       })
     );
+=======
+    return this.http.post(`${this.apiUrl}/recipe`, recipeData)
+      .pipe(
+        catchError(this.handleError)
+      );
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   }
 
   // Update a recipe
@@ -137,6 +162,7 @@ export class DataService {
       .pipe(catchError(this.handleError));
   }
 
+<<<<<<< HEAD
   createUserRecipe(recipeData: FormData): Observable<any> {
     const token = this.authService.getToken();
     const userId = this.authService.getCurrentUserId();
@@ -181,6 +207,20 @@ export class DataService {
       })
     );
   }
+=======
+  createUserRecipe(recipeData: any): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  
+    return this.http.post<any>(`${this.apiUrl}user-recipe`, recipeData, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  } 
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
   
   getUserRecipes(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}user-recipes`)
@@ -212,6 +252,7 @@ updateProfile(profileData: any): Observable<any> {
     .pipe(catchError(this.handleError));
 }
 
+<<<<<<< HEAD
 // In your data.service.ts or a similar service file
 addToFavorites(recipeId: number, isUserRecipe: boolean = false): Observable<any> {
   const token = this.authService.getToken();
@@ -352,4 +393,6 @@ getSharedRecipeById(recipeId: number): Observable<any> {
     );
 }
 
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 }

@@ -1,14 +1,21 @@
 <?php 
+<<<<<<< HEAD
 // Turn on output buffering at the very beginning
 ob_start();
 
 // Use consistent CORS headers across all endpoints
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 header("Access-Control-Allow-Origin: http://localhost:4200");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
+<<<<<<< HEAD
 // Handle preflight OPTIONS request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+=======
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     http_response_code(200);
     exit();
 }
@@ -19,6 +26,7 @@ require_once './config/db_connection.php';
 
 $api = new Api($mysqli);
 
+<<<<<<< HEAD
 // Get the raw input data for POST requests
 $inputJSON = file_get_contents('php://input');
 $data = json_decode($inputJSON, true);
@@ -38,6 +46,8 @@ if (isset($data['request']) && $data['request'] === 'admin-register') {
 }
 
 // Regular route processing
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 $request = isset($_REQUEST['request']) ? explode('/', $_REQUEST['request']) : null;
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -46,21 +56,37 @@ switch ($method) {
         handleGetRequest($request, $mysqli);
         break;
     case 'POST':
+<<<<<<< HEAD
         handlePostRequest($request, $mysqli, $data);
         break;
     case 'PUT':
+=======
+        $data = json_decode(file_get_contents("php://input"), true);
+        handlePostRequest($request, $mysqli, $data);
+        break;
+    case 'PUT':
+        $data = json_decode(file_get_contents("php://input"), true);
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         handlePutRequest($request, $mysqli, $data);
         break;
     case 'DELETE':
         handleDeleteRequest($request, $mysqli);
         break;
     default:
+<<<<<<< HEAD
         http_response_code(405);
         echo json_encode(['error' => 'Method not allowed']);
 }
 
 // Rest of your code...
 
+=======
+        http_response_code(404);
+        echo json_encode(['error' => 'Method not available']);
+        break;
+}
+
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 function handleGetRequest($request, $mysqli) {
     global $api;
     
@@ -73,6 +99,7 @@ function handleGetRequest($request, $mysqli) {
     switch ($request[0]) {
         case 'users':
             break;
+<<<<<<< HEAD
         case 'recipe':
             if (isset($request[1])) {
                 $recipeId = (int)$request[1];
@@ -104,6 +131,39 @@ function handleGetRequest($request, $mysqli) {
                 echo json_encode(['error' => 'Method not allowed']);
             }
             break;    
+=======
+            case 'recipe':
+                if (isset($request[1])) {
+                    $recipeId = (int)$request[1];
+                    echo $api->getRecipe($recipeId);
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['error' => 'Recipe ID required']);
+                }
+                break;
+
+                case 'get-recipe':
+                    $recipeId = isset($_GET['id']) ? (int)$_GET['id'] : null;
+                    $userId = isset($_GET['userId']) ? (int)$_GET['userId'] : null;
+                    $isUserRecipe = isset($_GET['isUserRecipe']) ? filter_var($_GET['isUserRecipe'], FILTER_VALIDATE_BOOLEAN) : false;
+                
+                    if ($recipeId) {
+                        echo $api->getRecipeView($recipeId, $userId, $isUserRecipe);
+                    } else {
+                        http_response_code(400);
+                        echo json_encode(['success' => false, 'error' => 'Recipe ID is required']);
+                    }
+                    break;
+                    
+        case 'ingredients':
+                if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                    echo $api->getAvailableIngredients();
+                } else {
+                    http_response_code(405);
+                    echo json_encode(['error' => 'Method not allowed']);
+                }
+                break;    
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
                 
         case 'get-recipe-by-id':
             $recipeId = isset($_GET['id']) ? (int)$_GET['id'] : null; // Convert to integer
@@ -120,6 +180,7 @@ function handleGetRequest($request, $mysqli) {
 
             
         case 'get-ingredients':
+<<<<<<< HEAD
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 echo $api->getIngredients();
             } else {
@@ -135,6 +196,23 @@ function handleGetRequest($request, $mysqli) {
                 echo $api->getAllRecipes();
             }
             break;       
+=======
+                if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                    echo $api->getIngredients();
+                } else {
+                    http_response_code(405);
+                    echo json_encode(['error' => 'Method not allowed']);
+                }
+                break;  
+         case 'recipes':
+                    if (isset($_GET['ingredients'])) {
+                        $ingredients = json_decode($_GET['ingredients'], true);
+                        echo $api->getRecipesByIngredients($ingredients);
+                    } else {
+                        echo $api->getAllRecipes();
+                    }
+                    break;       
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
         case 'search':
             $searchTerm = isset($_GET['term']) ? $_GET['term'] : '';
@@ -142,6 +220,7 @@ function handleGetRequest($request, $mysqli) {
             echo $api->searchRecipes($searchTerm, $category);
             break;
             
+<<<<<<< HEAD
         case 'user-recipes':
             try {
                 $userId = $api->validateAuthToken();
@@ -200,6 +279,45 @@ function handleGetRequest($request, $mysqli) {
             $recipeId = isset($_GET['id']) ? (int)$_GET['id'] : null;
             echo $api->getRecipeRating($recipeId);
             break;
+=======
+            case 'user-recipes':
+                try {
+                    $userId = $api->validateAuthToken();
+                    echo $api->getUserRecipes($userId);
+                } catch (Exception $e) {
+                    http_response_code(401);
+                    echo json_encode(['error' => 'Unauthorized']);
+                }
+                break;
+    
+            case 'user-recipe':
+                try {
+                    $userId = $api->validateAuthToken();
+                    
+                    // Check if a specific recipe ID is provided
+                    $recipeId = isset($request[1]) ? $request[1] : null;
+                    
+                    if ($recipeId) {
+                        echo $api->getUserRecipe($userId, $recipeId);
+                    } else {
+                        http_response_code(400);
+                        echo json_encode(['error' => 'Recipe ID required']);
+                    }
+                } catch (Exception $e) {
+                    http_response_code(401);
+                    echo json_encode(['error' => 'Unauthorized']);
+                }
+                break; 
+            case 'user-profile':
+                try {
+                    $userId = $api->validateAuthToken();
+                    echo $api->getUserProfile($userId);
+                } catch (Exception $e) {
+                    http_response_code(401);
+                    echo json_encode(['error' => 'Unauthorized']);
+                }
+                break;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 
         default:
             http_response_code(404);
@@ -208,6 +326,7 @@ function handleGetRequest($request, $mysqli) {
     }
 }
 
+<<<<<<< HEAD
 // In your handlePostRequest function, check for the 'request' parameter in the body
 function handlePostRequest($request, $mysqli, $data) {
     global $api;
@@ -232,6 +351,11 @@ function handlePostRequest($request, $mysqli, $data) {
     }
 
     // Existing URL-based routing
+=======
+function handlePostRequest($request, $mysqli, $data) {
+    global $api;
+
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     if (!$request || empty($request[0])) {
         http_response_code(403);
         echo json_encode(['error' => 'Invalid request']);
@@ -243,6 +367,7 @@ function handlePostRequest($request, $mysqli, $data) {
             echo json_encode($api->register($data['email'], $data['username'], $data['password']));
             break;
         case 'login':
+<<<<<<< HEAD
             if (!isset($data['email']) || !isset($data['password'])) {
                 http_response_code(400);
                 echo json_encode(['error' => 'Email and password are required']);
@@ -281,12 +406,28 @@ function handlePostRequest($request, $mysqli, $data) {
             try {
                 $userId = $api->validateAuthToken();
                 echo $api->createUserRecipe($userId, $_POST);
+=======
+            echo json_encode($api->login($data['email'], $data['password']));
+            break;
+        case 'recipe':
+            echo $api->createRecipe($data);
+            break;
+        case 'user-recipe':
+            error_log('Received user-recipe request');
+            error_log('Request data: ' . print_r($data, true));
+            error_log('Request method: ' . $_SERVER['REQUEST_METHOD']);
+    
+            try {
+                $userId = $api->validateAuthToken();
+                echo $api->createUserRecipe($userId, $data);
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
             } catch (Exception $e) {
                 error_log('Authentication error: ' . $e->getMessage());
                 http_response_code(401);
                 echo json_encode(['error' => 'Unauthorized']);
             }
             break;
+<<<<<<< HEAD
 
         case 'add-favorite':
             // Get the user ID from the authentication token
@@ -356,6 +497,9 @@ function handlePostRequest($request, $mysqli, $data) {
             }
             break;
 
+=======
+    
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         default:
             http_response_code(404);
             echo json_encode(['error' => 'Resource not found']);
@@ -410,6 +554,7 @@ function handleDeleteRequest($request, $mysqli) {
 
     switch ($request[0]) {
         case 'delete-user-recipe':
+<<<<<<< HEAD
             // Check if user_id and recipe_id are provided in the query parameters
             $userId = $_GET['user_id'] ?? null;
             $recipeId = $_GET['recipe_id'] ?? null;
@@ -427,6 +572,9 @@ function handleDeleteRequest($request, $mysqli) {
             echo $api->deleteUserRecipe($userId, $recipeId);
             break;
 
+=======
+            break;
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         case 'recipe':
             if (isset($request[1])) {
                 echo $api->deleteRecipe($request[1]);
@@ -435,6 +583,7 @@ function handleDeleteRequest($request, $mysqli) {
                 echo json_encode(['error' => 'Recipe ID required']);
             }
             break;
+<<<<<<< HEAD
                 
         case 'remove-favorite':
             // Get the user ID from the authentication token
@@ -447,6 +596,8 @@ function handleDeleteRequest($request, $mysqli) {
             }
             break;
                 
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
         default:
             http_response_code(404);
             echo json_encode(['error' => 'Resource not found']);
@@ -455,13 +606,17 @@ function handleDeleteRequest($request, $mysqli) {
 }
 
 function sendResponse($response) {
+<<<<<<< HEAD
     // Clean any previous output
     ob_clean();
     
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
     header('Content-Type: application/json');
     echo json_encode($response);
     exit();
 }
+<<<<<<< HEAD
 
 function validateAuthToken() {
     global $mysqli;  // Access the global mysqli connection
@@ -503,4 +658,6 @@ function validateAuthToken() {
     $user = $result->fetch_assoc();
     return $user;
 }
+=======
+>>>>>>> 9d74a4f3524541cba0a69e98e22854246b46a016
 ?>
